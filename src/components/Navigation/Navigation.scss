@@ -1,0 +1,108 @@
+$primary-color: #e0e0e0;
+$secondary-color: #589f74;
+
+nav {
+  ul {
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: $primary-color;
+  }
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__svg {
+    width: 40px;
+    height: auto;
+    margin: 10px;
+  }
+
+  &__name {
+    margin: auto;
+    font-size: 20px;
+  }
+
+  &__menu {
+    display: none;
+
+    &--active {
+      position: absolute;
+      width: 100%;
+      top: 60px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 60px);
+      background-color: $secondary-color;
+      color: $primary-color;
+    }
+  }
+
+  &__list {
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 28px;
+    height: calc(60vh - 60px);
+    width: 80%;
+  }
+
+  &__item {
+    margin: 12px;
+    padding: 10px;
+
+    border-bottom: 4px solid $primary-color;
+  }
+
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__lang {
+    height: 50px;
+    padding: 10px 20px;
+    background-color: $primary-color;
+    border-radius: 0 12px 12px 0;
+    color: black;
+    font-size: 20px;
+  }
+
+  &__profile {
+    margin: 20px 0px;
+    background-color: $primary-color;
+    width: 50px;
+    height: 50px;
+    padding: 10px 20px 10px 10px;
+    border-radius: 12px 0 0 12px;
+  }
+
+  &__bars {
+    width: 40px;
+    height: auto;
+    margin: 10px;
+    transition: 1s;
+    &--rotate {
+      width: 40px;
+      height: auto;
+      margin: 10px;
+      transform: rotateZ(45deg);
+    }
+  }
+}
