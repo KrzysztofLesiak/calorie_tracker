@@ -2,21 +2,25 @@ $primary-color: #e0e0e0;
 $secondary-color: #589f74;
 
 nav {
+  position: relative;
   ul {
     list-style: none;
   }
 
   a {
     text-decoration: none;
-    color: $primary-color;
+    color: white;
   }
 }
 
 .navigation {
+  position: fixed;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  background-color: $primary-color;
+  z-index: 1;
 
   &__logo {
     display: flex;
@@ -47,6 +51,7 @@ nav {
       height: calc(100vh - 60px);
       background-color: $secondary-color;
       color: $primary-color;
+      z-index: 2;
     }
   }
 
@@ -65,7 +70,7 @@ nav {
     margin: 12px;
     padding: 10px;
 
-    border-bottom: 4px solid $primary-color;
+    border-bottom: 4px solid white;
   }
 
   &__container {
