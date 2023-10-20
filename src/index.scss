@@ -1,0 +1,22 @@
+$primary-color: #e0e0e0;
+$secondary-color: #589f74;
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+html {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+}
+
+body {
+  background-color: $primary-color;
+  width: 100%;
+  min-width: 250px;
+}
