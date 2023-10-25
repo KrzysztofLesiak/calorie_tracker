@@ -8,7 +8,7 @@ export const Home = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/");
+    navigate("/login");
   };
 
   return (
