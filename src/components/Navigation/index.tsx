@@ -20,6 +20,10 @@ export const Navigation = () => {
     setIsActive((prev) => !prev);
   };
 
+  const closeMenu = () => {
+    setIsActive(false);
+  };
+
   return (
     <nav className="navigation">
       <div className="navigation__logo" onClick={handleNavigation}>
@@ -47,7 +51,7 @@ export const Navigation = () => {
           <div className="navigation__lang">
             <span>ENG </span>|<span> PL</span>
           </div>
-          <Link to="/login">
+          <Link to="/login" onClick={closeMenu}>
             <ProfileIcon className="navigation__profile" />
           </Link>
         </div>

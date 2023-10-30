@@ -15,8 +15,9 @@
     padding: 12px;
     font-size: 1.4rem;
     border-radius: 10px;
-    border: 1px solid black;
+    border: 1px solid grey;
     outline: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.231);
   }
 
   &__button {
@@ -31,6 +32,7 @@
     font-size: 1.4rem;
     border: none;
     border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.231);
   }
 
   &__arrow {
@@ -60,7 +62,7 @@
     border: 1px solid #2b64d1;
     padding: 10px;
     font-size: 1.2rem;
-    width: 80%;
+    width: 83%;
     border-radius: 10px;
     margin: 20px 0;
 
@@ -71,7 +73,7 @@
       border: 1px solid #2b64d1;
       padding: 10px;
       font-size: 1.2rem;
-      width: 80%;
+      width: 83%;
       border-radius: 10px;
       margin: 20px 0;
       background-color: unset;

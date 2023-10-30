@@ -4,8 +4,8 @@ $secondary-color: #589f74;
 .home {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
   width: 100%;
+  min-height: 100vh;
   position: relative;
 
   &__container {
@@ -29,7 +29,7 @@ $secondary-color: #589f74;
   }
 
   &__title {
-    margin: 30% 0 40px;
+    margin: 80px 0 40px;
     font-size: 2.8rem;
   }
 
@@ -37,7 +37,7 @@ $secondary-color: #589f74;
     transform: translateX(4%);
     width: 80%;
     height: auto;
-    max-width: 500px;
+    max-width: 350px;
   }
 
   &__text {
@@ -64,7 +64,8 @@ $secondary-color: #589f74;
 
   &__icon {
     width: 28px;
-    margin: 0px 28px 12px;
+    margin: 12px 28px 12px;
     height: auto;
+    color: #589f74;
   }
 }
