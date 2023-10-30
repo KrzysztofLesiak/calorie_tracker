@@ -1,4 +1,5 @@
-import { createContext, useState, JSX, ChangeEvent } from "react";
+import { createContext, useState, JSX, ChangeEvent, FormEvent } from "react";
+import { createUser } from "../utils/firebase/firebase";
 
 type UserProviderProps = {
   children: JSX.Element;
@@ -9,7 +10,15 @@ type UserContextType = {
     email: string;
     password: string;
   };
+  registerInputValue: {
+    email: string;
+    username: string;
+    password: string;
+    confirmPassword: string;
+  };
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleRegisterInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleRegister: (event: FormEvent<HTMLFormElement>) => void;
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -22,6 +31,12 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     email: "",
     password: "",
   });
+  const [registerInputValue, setRegisterInputValue] = useState({
+    email: "",
+    username: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -31,8 +46,28 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     });
   };
 
+  const handleRegisterInput = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+
+    setRegisterInputValue((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleRegister = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    createUser(registerInputValue.email, registerInputValue.password);
+  };
+
   return (
-    <UserContext.Provider value={{ inputValue, handleInput }}>
+    <UserContext.Provider
+      value={{
+        inputValue,
+        registerInputValue,
+        handleInput,
+        handleRegisterInput,
+        handleRegister,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
