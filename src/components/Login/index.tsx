@@ -9,12 +9,12 @@ import { UserContext } from "../../context/UserContext";
 import "./Login.scss";
 
 export const Login = () => {
-  const { inputValue, handleInput } = useContext(UserContext);
+  const { inputValue, handleInput, handleLogin } = useContext(UserContext);
 
   return (
     <div className="login">
       <Logo className="login__logo" />
-      <form className="login__form">
+      <form className="login__form" onSubmit={handleLogin}>
         <input
           className="login__input"
           type="email"
