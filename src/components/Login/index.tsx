@@ -3,17 +3,24 @@ import ArrowBracket from "../../assets/arrow-right-to-bracket-solid.svg?react";
 import Google from "../../assets/google.svg?react";
 import Facebook from "../../assets/facebook.svg?react";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 
 import "./Login.scss";
 
 export const Login = () => {
-  const { inputValue, handleInput, handleLogin } = useContext(UserContext);
+  const { inputValue, errorMsg, handleInput, handleLogin, setErrorMsg } =
+    useContext(UserContext);
+
+  useEffect(() => {
+    setErrorMsg("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="login">
       <Logo className="login__logo" />
+      {errorMsg && <p className="login__error">{errorMsg}</p>}
       <form className="login__form" onSubmit={handleLogin}>
         <input
           className="login__input"

@@ -33,11 +33,13 @@ type UserContextType = {
   };
   token: string;
   user: User | undefined;
+  errorMsg: string;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleRegisterInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleRegister: (event: FormEvent<HTMLFormElement>) => void;
   handleLogin: (event: FormEvent<HTMLFormElement>) => Promise<void>;
   handleLogout: () => void;
+  setErrorMsg: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -57,6 +59,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   });
   const [token, setToken] = useState("");
   const [user, setUser] = useState<User>();
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -76,15 +79,40 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const user = await createUser(
+    if (!registerInputValue.email) {
+      setErrorMsg("Wprowadź adres email");
+      return;
+    } else if (!registerInputValue.username) {
+      setErrorMsg("Wprowadź nazwę użytkownika");
+      return;
+    } else if (!registerInputValue.password) {
+      setErrorMsg("Wprowadź hasło");
+      return;
+    } else if (!registerInputValue.confirmPassword) {
+      setErrorMsg("Wprowadź hasło potwierdzające");
+      return;
+    } else if (
+      registerInputValue.confirmPassword !== registerInputValue.password
+    ) {
+      setErrorMsg("Hasła muszą być identyczne");
+      return;
+    }
+
+    const response = await createUser(
       registerInputValue.email,
       registerInputValue.password,
       registerInputValue.username
     );
 
-    if (user instanceof FirebaseError) {
-      console.log(user);
-
+    if (response instanceof FirebaseError) {
+      if (response.code === "auth/invalid-email")
+        setErrorMsg("Nieprawidłowy email");
+      else if (response.code === "auth/missing-password")
+        setErrorMsg("Brakujące hasło");
+      else if (response.code === "auth/email-already-in-use")
+        setErrorMsg("Email jest już zajęty");
+      else if (response.code === "auth/weak-password")
+        setErrorMsg("Hasło powinno zawierać minimum 6 znaków");
       // TODO handle createUser errors
       return;
     }
@@ -94,14 +122,13 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const accessToken = await signIn(inputValue.email, inputValue.password);
+    const response = await signIn(inputValue.email, inputValue.password);
 
-    if (accessToken instanceof FirebaseError) {
-      // TODO handle signIn errors
+    if (response === "auth/invalid-login-credentials") {
+      setErrorMsg("Nieprawidłowy email lub hasło");
       return;
     }
 
-    setToken(accessToken);
     navigate(-1);
   };
 
@@ -131,11 +158,13 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         registerInputValue,
         token,
         user,
+        errorMsg,
         handleInput,
         handleRegisterInput,
         handleRegister,
         handleLogin,
         handleLogout,
+        setErrorMsg,
       }}
     >
       {children}

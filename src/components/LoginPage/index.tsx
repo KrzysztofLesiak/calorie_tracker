@@ -6,13 +6,14 @@ import { Register } from "../Register";
 import { UserContext } from "../../context/UserContext";
 
 export const LoginPage = () => {
-  const { token } = useContext(UserContext);
+  const { token, handleLogout } = useContext(UserContext);
   const { pathname } = useLocation();
 
   return (
     <div className="login-page">
       {token ? (
-        <Navigate to="/profile" />
+        // <Navigate to="/profile" />
+        <button onClick={handleLogout}>Logout</button>
       ) : (
         <>
           <div className="login-page__selector">

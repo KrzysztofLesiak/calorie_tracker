@@ -28,7 +28,7 @@ export const createUser = async (
   password: string,
   displayName: string
 ) => {
-  if (!email || !password) return;
+  // if (!email || !password || !displayName) return;
 
   try {
     const response = await createUserWithEmailAndPassword(
@@ -49,6 +49,8 @@ export const createUser = async (
   } catch (error: unknown) {
     if (!(error instanceof FirebaseError)) throw { error };
 
+    console.log(error);
+
     return error;
   }
 };
@@ -59,11 +61,11 @@ export const signIn = async (email: string, password: string) => {
 
     if (!response) throw new Error("Something went wrong");
 
-    const accessToken = await response.user.getIdToken();
-    return accessToken;
+    // const accessToken = await response.user.getIdToken();
+    return "Logged in";
   } catch (error: unknown) {
     if (!(error instanceof FirebaseError)) throw { error };
-    return error;
+    return error.code;
   }
 };
 
