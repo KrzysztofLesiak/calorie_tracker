@@ -1,7 +1,10 @@
 import { FirebaseError, initializeApp } from "firebase/app";
 import {
+  User,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
@@ -62,4 +65,12 @@ export const signIn = async (email: string, password: string) => {
     if (!(error instanceof FirebaseError)) throw { error };
     return error;
   }
+};
+
+export const signOutUser = async () => await signOut(auth);
+
+export const authStateObserver = (
+  callback: (user: User | null) => Promise<void>
+) => {
+  return onAuthStateChanged(auth, callback);
 };

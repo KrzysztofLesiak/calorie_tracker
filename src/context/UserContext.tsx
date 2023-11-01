@@ -1,7 +1,20 @@
-import { createContext, useState, JSX, ChangeEvent, FormEvent } from "react";
-import { createUser, signIn } from "../utils/firebase/firebase";
+import {
+  createContext,
+  useState,
+  JSX,
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+} from "react";
+import {
+  authStateObserver,
+  createUser,
+  signIn,
+  signOutUser,
+} from "../utils/firebase/firebase";
 import { FirebaseError } from "firebase/app";
 import { useNavigate } from "react-router-dom";
+import { User } from "firebase/auth";
 
 type UserProviderProps = {
   children: JSX.Element;
@@ -19,10 +32,12 @@ type UserContextType = {
     confirmPassword: string;
   };
   token: string;
+  user: User | undefined;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleRegisterInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleRegister: (event: FormEvent<HTMLFormElement>) => void;
   handleLogin: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+  handleLogout: () => void;
 };
 
 export const UserContext = createContext<UserContextType>(
@@ -31,8 +46,8 @@ export const UserContext = createContext<UserContextType>(
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [inputValue, setInputValue] = useState({
-    email: "",
-    password: "",
+    email: "test4@test.pl",
+    password: "test123",
   });
   const [registerInputValue, setRegisterInputValue] = useState({
     email: "",
@@ -41,6 +56,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     confirmPassword: "",
   });
   const [token, setToken] = useState("");
+  const [user, setUser] = useState<User>();
   const navigate = useNavigate();
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -89,16 +105,37 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     navigate(-1);
   };
 
+  const handleLogout = async () => {
+    signOutUser();
+    setToken("");
+  };
+
+  useEffect(() => {
+    const unsubscribe = authStateObserver(async (user: User | null) => {
+      if (user) {
+        setUser(user);
+        setToken(user.uid);
+      } else {
+        setUser(undefined);
+        setToken("");
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
         inputValue,
         registerInputValue,
         token,
+        user,
         handleInput,
         handleRegisterInput,
         handleRegister,
         handleLogin,
+        handleLogout,
       }}
     >
       {children}
