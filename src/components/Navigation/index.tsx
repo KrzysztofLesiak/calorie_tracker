@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Logo from "../../assets/logo-calorie2.svg?react";
@@ -18,6 +18,10 @@ export const Navigation = () => {
 
   const toggleMenu = () => {
     setIsActive((prev) => !prev);
+  };
+
+  const closeMenu = () => {
+    setIsActive(false);
   };
 
   return (
@@ -47,7 +51,9 @@ export const Navigation = () => {
           <div className="navigation__lang">
             <span>ENG </span>|<span> PL</span>
           </div>
-          <ProfileIcon className="navigation__profile" />
+          <Link to="/login" onClick={closeMenu}>
+            <ProfileIcon className="navigation__profile" />
+          </Link>
         </div>
       </div>
       {isActive ? (

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg width="50pt" height="50pt" fill-rule="evenodd" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+<svg width="50pt" height="50pt" fill="currentColor" viewBox="0 0 50 50" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
   <path style="stroke:none; fill:#000000" d="M 227.091 593.123C 227.091 592.957 226.957 592.823 226.791 592.823C 226.626 592.823 226.491 592.957 226.491 593.123C 226.491 593.289 226.626 593.423 226.791 593.423C 226.957 593.423 227.091 593.289 227.091 593.123z"/>
   <g transform="matrix(0.132275, 0, 0, 0.137733, -14.370088, -32.977962)">
     <path style="stroke: rgb(0, 0, 0); stroke-width: 0.850394; stroke-linejoin: round; stroke-linecap: round;" d="M 352.983 240.159 C 358.992 266.862 353.75 296.473 352.175 323.309 C 350.664 349.065 349.347 374.829 348.053 400.596 C 347.119 419.202 344.542 439.009 347.599 457.578 C 350.679 476.287 360.021 492.002 366.085 509.566 C 375.866 537.893 376.87 571.818 361.878 598.622 M 361.894 598.655 C 434.619 572.338 486.638 502.64 486.638 420.874 C 486.638 335.81 430.338 263.807 352.995 240.122"/>
