@@ -8,6 +8,16 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDocs,
+  Timestamp,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { ProductType } from "../../context/ProductContext";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -21,6 +31,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
+// AUTH
 const auth = getAuth(app);
 
 export const createUser = async (
@@ -75,4 +86,40 @@ export const authStateObserver = (
   callback: (user: User | null) => Promise<void>
 ) => {
   return onAuthStateChanged(auth, callback);
+};
+
+// CLOUD FIRESTORE
+
+const db = getFirestore(app);
+
+export const addProduct = async (product: ProductType) => {
+  const { productName, energyValue, proteins, fats, carbohydrates, createdBy } =
+    product;
+  try {
+    const docRef = await addDoc(collection(db, "products"), {
+      productName,
+      energyValue,
+      proteins,
+      fats,
+      carbohydrates,
+      createdBy,
+      createdTime: Timestamp.now(),
+    });
+
+    return docRef;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getProducts = async () => {
+  const productsRef = collection(db, "products");
+  const q = query(productsRef, orderBy("productName", "asc"));
+  try {
+    const response = await getDocs(q);
+
+    return response.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    return error;
+  }
 };

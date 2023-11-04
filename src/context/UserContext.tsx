@@ -32,7 +32,7 @@ type UserContextType = {
     confirmPassword: string;
   };
   token: string;
-  user: User | undefined;
+  user: User | null;
   errorMsg: string;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleRegisterInput: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -58,7 +58,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     confirmPassword: "",
   });
   const [token, setToken] = useState("");
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
@@ -143,7 +143,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         setUser(user);
         setToken(user.uid);
       } else {
-        setUser(undefined);
+        setUser(null);
         setToken("");
       }
     });
