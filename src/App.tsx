@@ -19,6 +19,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<LoginPage />} />
             <Route path="/products" element={<ProductsBase />} />
+            <Route path="/products/:productId" element={<ProductsBase />} />
             <Route path="/products/new" element={<NewProduct />} />
           </Routes>
         </div>

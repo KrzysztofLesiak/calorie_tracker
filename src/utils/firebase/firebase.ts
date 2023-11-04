@@ -16,6 +16,9 @@ import {
   Timestamp,
   orderBy,
   query,
+  doc,
+  updateDoc,
+  getDoc,
 } from "firebase/firestore";
 import { ProductType } from "../../context/ProductContext";
 
@@ -121,5 +124,23 @@ export const getProducts = async () => {
     return response.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     return error;
+  }
+};
+
+export const getSingleProduct = async (productId: string) => {
+  const docRef = doc(db, "products", productId);
+  const response = await getDoc(docRef);
+
+  return { id: response.id, ...response.data() };
+};
+
+export const updateProduct = async (product: ProductType) => {
+  try {
+    const docRef = doc(db, "products", product.id!);
+    await updateDoc(docRef, {
+      ...product,
+    });
+  } catch (error) {
+    console.log(error);
   }
 };

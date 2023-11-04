@@ -1,5 +1,6 @@
-import { ChangeEvent, createContext, JSX, useEffect, useState } from "react";
-import { addProduct, getProducts } from "../utils/firebase/firebase";
+import { ChangeEvent, createContext, JSX, useEffect } from "react";
+import { useProduct } from "../hooks/useProduct";
+import { getProducts } from "../utils/firebase/firebase";
 
 export type ProductType = {
   id?: string;
@@ -8,14 +9,15 @@ export type ProductType = {
   proteins: number;
   fats: number;
   carbohydrates: number;
-  createdBy: string;
+  createdBy?: string;
 };
 
 type ProductContextProps = {
-  newProductInput: ProductType;
+  inputValue: ProductType;
   productsList: ProductType[];
-  handleNewProductInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleNewProductSubmit: (displayName: string) => void;
+  fetchData: () => Promise<void>;
 };
 
 type ProductProviderProps = {
@@ -25,54 +27,39 @@ type ProductProviderProps = {
 export const ProductContext = createContext({} as ProductContextProps);
 
 export const ProductProvider = ({ children }: ProductProviderProps) => {
-  const [newProductInput, setNewProductInput] = useState({
-    productName: "",
-    energyValue: 0,
-    proteins: 0,
-    fats: 0,
-    carbohydrates: 0,
-    createdBy: "",
-  });
-  const [productsList, setProductsList] = useState<ProductType[]>([]);
+  const {
+    productsList,
+    inputValue,
+    handleInput,
+    setProductsList,
+    handleNewProductSubmit,
+  } = useProduct();
 
   const fetchData = async () => {
-    const products = (await getProducts()) as ProductType[];
+    const response = (await getProducts()) as ProductType[];
 
-    setProductsList(products);
+    if (response) setProductsList(response);
   };
 
-  const handleNewProductInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+  // const fetchProduct = async (productId: string) => {
+  //   const product = getSingleProduct(productId);
 
-    setNewProductInput((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleNewProductSubmit = (displayName: string) => {
-    if (newProductInput.productName.length > 2) {
-      const product = {
-        productName: newProductInput.productName,
-        energyValue: newProductInput.energyValue,
-        proteins: newProductInput.proteins,
-        fats: newProductInput.fats,
-        carbohydrates: newProductInput.carbohydrates,
-        createdBy: displayName,
-      };
-
-      addProduct(product);
-      fetchData();
-    }
-  };
+  //   return product;
+  // };
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
     <ProductContext.Provider
       value={{
-        newProductInput,
         productsList,
-        handleNewProductInput,
+        inputValue,
+        handleInput,
         handleNewProductSubmit,
+        fetchData,
       }}
     >
       {children}

@@ -1,21 +1,45 @@
-import { ProductContext } from "../../context/ProductContext";
-import { FormEvent, useContext } from "react";
+import { FormEvent, useContext, useEffect } from "react";
+import { ProductContext, ProductType } from "../../context/ProductContext";
+import { useParams } from "react-router-dom";
+import { getSingleProduct, updateProduct } from "../../utils/firebase/firebase";
+import { useProduct } from "../../hooks/useProduct";
 import { UserContext } from "../../context/UserContext";
 
-export const NewProduct = () => {
-  const { inputValue, handleInput, handleNewProductSubmit } =
-    useContext(ProductContext);
+export const Product = () => {
+  const { productId } = useParams();
+  const { product, inputValue, setProduct, handleInput, setInputValue } =
+    useProduct();
+  const { fetchData } = useContext(ProductContext);
   const { user } = useContext(UserContext);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleEditSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const productToUpdate = {
+      ...product,
+      ...inputValue,
+    };
 
-    if (user?.uid) handleNewProductSubmit(user.uid);
+    console.log(productToUpdate);
+
+    await updateProduct(productToUpdate);
+    fetchData();
   };
 
+  const updateInputs = async (productId: string) => {
+    const singleProduct = (await getSingleProduct(productId)) as ProductType;
+    setProduct(singleProduct);
+    setInputValue(singleProduct);
+  };
+
+  useEffect(() => {
+    if (productId) updateInputs(productId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productId]);
+
   return (
-    <div className="new-product">
-      <form className="new-product__form" onSubmit={handleSubmit}>
+    <div>
+      {product?.createdBy}
+      <form className="new-product__form" onSubmit={handleEditSubmit}>
         <label htmlFor="productName">
           <input
             id="productName"
@@ -65,7 +89,9 @@ export const NewProduct = () => {
             min={0}
           />
         </label>
-        <button type="submit">Dodaj produkt</button>
+        {user?.uid === product?.createdBy && (
+          <button type="submit">Edytuj produkt</button>
+        )}
       </form>
     </div>
   );
