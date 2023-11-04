@@ -1,6 +1,11 @@
-import { ChangeEvent, useState } from "react";
-import { addProduct, getProducts } from "../utils/firebase/firebase";
-import { ProductType } from "../context/ProductContext";
+import { ChangeEvent, FormEvent, useState, useContext } from "react";
+import {
+  addProduct,
+  deleteProduct,
+  getSingleProduct,
+  updateProduct,
+} from "../utils/firebase/firebase";
+import { ProductContext, ProductType } from "../context/ProductContext";
 import { useNavigate } from "react-router-dom";
 
 type UseProductData = {
@@ -11,7 +16,10 @@ type UseProductData = {
   setProductsList: React.Dispatch<React.SetStateAction<ProductType[]>>;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   setInputValue: React.Dispatch<React.SetStateAction<ProductType>>;
-  handleNewProductSubmit: (uid: string) => void;
+  handleNewProductSubmit: (uid: string) => Promise<void>;
+  handleDelete: (productId: string | undefined) => Promise<void>;
+  updateInputs: (productId: string) => Promise<void>;
+  handleEditSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export const useProduct = (): UseProductData => {
@@ -24,14 +32,9 @@ export const useProduct = (): UseProductData => {
     fats: 0,
     carbohydrates: 0,
   });
+  const { fetchData } = useContext(ProductContext);
 
   const navigate = useNavigate();
-
-  const fetchData = async () => {
-    const response = (await getProducts()) as ProductType[];
-
-    if (response) setProductsList(response);
-  };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -63,6 +66,33 @@ export const useProduct = (): UseProductData => {
     }
   };
 
+  const handleDelete = async (productId: string | undefined) => {
+    if (productId) {
+      await deleteProduct(productId);
+      fetchData();
+      navigate("/products");
+    }
+  };
+
+  const updateInputs = async (productId: string) => {
+    const singleProduct = (await getSingleProduct(productId)) as ProductType;
+    setProduct(singleProduct);
+    setInputValue(singleProduct);
+  };
+
+  const handleEditSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const productToUpdate = {
+      ...product,
+      ...inputValue,
+    };
+
+    console.log(productToUpdate);
+
+    await updateProduct(productToUpdate);
+    fetchData();
+  };
+
   return {
     product,
     productsList,
@@ -72,5 +102,8 @@ export const useProduct = (): UseProductData => {
     handleInput,
     setInputValue,
     handleNewProductSubmit,
+    handleDelete,
+    updateInputs,
+    handleEditSubmit,
   };
 };

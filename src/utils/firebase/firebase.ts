@@ -19,6 +19,7 @@ import {
   doc,
   updateDoc,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { ProductType } from "../../context/ProductContext";
 
@@ -141,6 +142,15 @@ export const updateProduct = async (product: ProductType) => {
       ...product,
     });
   } catch (error) {
-    console.log(error);
+    return error;
+  }
+};
+
+export const deleteProduct = async (productId: string) => {
+  try {
+    const docRef = doc(db, "products", productId);
+    await deleteDoc(docRef);
+  } catch (error) {
+    return error;
   }
 };

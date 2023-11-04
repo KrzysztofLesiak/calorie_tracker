@@ -1,6 +1,8 @@
-import { ChangeEvent, createContext, JSX, useEffect } from "react";
+import { createContext, JSX, useEffect } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { getProducts } from "../utils/firebase/firebase";
+// import { addProduct, deleteProduct } from "../utils/firebase/firebase";
+// import { useNavigate } from "react-router-dom";
 
 export type ProductType = {
   id?: string;
@@ -13,10 +15,7 @@ export type ProductType = {
 };
 
 type ProductContextProps = {
-  inputValue: ProductType;
   productsList: ProductType[];
-  handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
-  handleNewProductSubmit: (displayName: string) => void;
   fetchData: () => Promise<void>;
 };
 
@@ -27,25 +26,13 @@ type ProductProviderProps = {
 export const ProductContext = createContext({} as ProductContextProps);
 
 export const ProductProvider = ({ children }: ProductProviderProps) => {
-  const {
-    productsList,
-    inputValue,
-    handleInput,
-    setProductsList,
-    handleNewProductSubmit,
-  } = useProduct();
+  const { productsList, setProductsList } = useProduct();
 
   const fetchData = async () => {
     const response = (await getProducts()) as ProductType[];
 
     if (response) setProductsList(response);
   };
-
-  // const fetchProduct = async (productId: string) => {
-  //   const product = getSingleProduct(productId);
-
-  //   return product;
-  // };
 
   useEffect(() => {
     fetchData();
@@ -56,9 +43,6 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
     <ProductContext.Provider
       value={{
         productsList,
-        inputValue,
-        handleInput,
-        handleNewProductSubmit,
         fetchData,
       }}
     >

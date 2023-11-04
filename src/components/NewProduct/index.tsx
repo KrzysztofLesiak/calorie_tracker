@@ -1,10 +1,9 @@
-import { ProductContext } from "../../context/ProductContext";
 import { FormEvent, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
+import { useProduct } from "../../hooks/useProduct";
 
 export const NewProduct = () => {
-  const { inputValue, handleInput, handleNewProductSubmit } =
-    useContext(ProductContext);
+  const { inputValue, handleInput, handleNewProductSubmit } = useProduct();
   const { user } = useContext(UserContext);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {

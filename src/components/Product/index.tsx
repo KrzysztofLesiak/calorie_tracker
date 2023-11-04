@@ -1,38 +1,31 @@
-import { FormEvent, useContext, useEffect } from "react";
-import { ProductContext, ProductType } from "../../context/ProductContext";
+import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getSingleProduct, updateProduct } from "../../utils/firebase/firebase";
-import { useProduct } from "../../hooks/useProduct";
 import { UserContext } from "../../context/UserContext";
+import { useProduct } from "../../hooks/useProduct";
 
 export const Product = () => {
   const { productId } = useParams();
-  const { product, inputValue, setProduct, handleInput, setInputValue } =
-    useProduct();
-  const { fetchData } = useContext(ProductContext);
+  const {
+    product,
+    inputValue,
+    handleInput,
+    updateInputs,
+    handleEditSubmit,
+    handleDelete,
+    setInputValue,
+  } = useProduct();
   const { user } = useContext(UserContext);
-
-  const handleEditSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const productToUpdate = {
-      ...product,
-      ...inputValue,
-    };
-
-    console.log(productToUpdate);
-
-    await updateProduct(productToUpdate);
-    fetchData();
-  };
-
-  const updateInputs = async (productId: string) => {
-    const singleProduct = (await getSingleProduct(productId)) as ProductType;
-    setProduct(singleProduct);
-    setInputValue(singleProduct);
-  };
 
   useEffect(() => {
     if (productId) updateInputs(productId);
+
+    return setInputValue({
+      productName: "",
+      energyValue: 0,
+      proteins: 0,
+      fats: 0,
+      carbohydrates: 0,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
@@ -93,6 +86,11 @@ export const Product = () => {
           <button type="submit">Edytuj produkt</button>
         )}
       </form>
+      {user?.uid === product?.createdBy && (
+        <button onClick={() => handleDelete(productId)} type="button">
+          Usuń produkt
+        </button>
+      )}
     </div>
   );
 };
