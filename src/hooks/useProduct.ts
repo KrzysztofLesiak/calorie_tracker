@@ -45,11 +45,8 @@ export const useProduct = (): UseProductData => {
   const handleNewProductSubmit = async (uid: string) => {
     if (inputValue.productName.length > 2) {
       const product = {
-        productName: inputValue.productName,
-        energyValue: inputValue.energyValue,
-        proteins: inputValue.proteins,
-        fats: inputValue.fats,
-        carbohydrates: inputValue.carbohydrates,
+        ...inputValue,
+        productName: inputValue.productName.toLowerCase(),
         createdBy: uid,
       };
 
@@ -85,6 +82,7 @@ export const useProduct = (): UseProductData => {
     const productToUpdate = {
       ...product,
       ...inputValue,
+      productName: inputValue.productName.toLowerCase(),
     };
 
     console.log(productToUpdate);

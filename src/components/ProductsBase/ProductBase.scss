@@ -1,0 +1,27 @@
+.product-base {
+  text-align: center;
+  &__title {
+    margin: 40px 0 40px;
+    font-size: 2.8rem;
+  }
+  &__link {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1.6rem;
+    padding: 16px;
+    background-color: #589f74;
+    color: white;
+    border-radius: 20px;
+  }
+  &__list {
+    list-style: none;
+    margin: 40px 0;
+    text-align: left;
+    font-size: 1.6rem;
+    border-bottom: 4px solid #0000002e;
+  }
+  &__empty {
+    margin: 40px;
+    font-size: 2rem;
+  }
+}
