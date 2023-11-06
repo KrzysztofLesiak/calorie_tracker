@@ -1,0 +1,67 @@
+.new-product {
+  margin: auto;
+  width: 80%;
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__name-box {
+    text-align: center;
+    font-size: 1.6rem;
+  }
+  &__info {
+    text-align: center;
+    font-size: 1.5rem;
+    margin: 12px 0 12px;
+  }
+  &__name {
+    width: 100%;
+    text-align: center;
+    background-color: #f4f4f4;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 1.8rem;
+    padding: 6px;
+    margin: 12px 0;
+  }
+  &__form {
+    font-size: 1.4rem;
+    text-align: left;
+  }
+  &__info {
+    text-align: center;
+    margin: 12px 0 12px;
+  }
+  &__box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px 0;
+  }
+  &__value-box {
+    width: 50%;
+    text-align: right;
+  }
+  &__input {
+    width: 70px;
+    font-size: 1.4rem;
+    text-align: right;
+    background-color: #f4f4f4;
+    border: 1px solid black;
+
+    border-radius: 6px;
+    padding: 0 5px;
+    margin: 0 5px 0;
+  }
+
+  &__add-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: #589f74;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.272);
+  }
+}

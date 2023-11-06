@@ -1,0 +1,14 @@
+.product-preview {
+  border-top: 4px solid #0000002e;
+  padding: 20px;
+  box-shadow: 0 0px 24px rgba(0, 0, 0, 0.15);
+
+  &__name {
+    text-transform: capitalize;
+    margin-bottom: 10px;
+  }
+
+  &__details {
+    font-size: 1.2rem;
+  }
+}
