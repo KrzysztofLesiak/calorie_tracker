@@ -32,6 +32,7 @@ export const useProduct = (): UseProductData => {
     fats: 0,
     carbohydrates: 0,
   });
+
   const { fetchData } = useContext(ProductContext);
 
   const navigate = useNavigate();
