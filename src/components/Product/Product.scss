@@ -12,10 +12,16 @@
     bottom: 0;
     background-color: #e0e0e0;
     width: 100%;
-    min-width: 280px;
+    min-width: 250px;
     margin: auto;
     border-radius: 20px 20px 0 0;
     padding: 0 0 40px;
+    transform: translateY(100%);
+    transition: 0.4s;
+
+    &--active {
+      transform: translateY(0);
+    }
   }
   &__name {
     width: 60%;
@@ -34,30 +40,35 @@
     }
   }
   &__form {
-    width: 80%;
-    margin: auto;
-    font-size: 1.8rem;
+    margin: 0 10%;
+    font-size: 1.4rem;
     font-weight: 500;
     text-align: left;
+  }
+  &__info {
+    text-align: center;
+    margin: 12px 0 12px;
   }
   &__box {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin: 24px 0;
   }
   &__value-box {
-    width: 50%;
+    width: 60%;
     text-align: right;
   }
 
   &__input {
-    width: 60px;
+    width: 70px;
     font-size: 1.8rem;
     text-align: right;
     background-color: initial;
     border: none;
     border-radius: 6px;
     padding: 0 5px;
+    margin: 0 5px 0 0;
     &:focus {
       outline: 1px solid black;
     }

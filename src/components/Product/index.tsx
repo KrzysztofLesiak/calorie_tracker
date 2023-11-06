@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { useProduct } from "../../hooks/useProduct";
@@ -6,6 +6,7 @@ import { useProduct } from "../../hooks/useProduct";
 import "./Product.scss";
 
 export const Product = () => {
+  const [isActive, setIsActive] = useState(false);
   const { productId } = useParams();
   const {
     product,
@@ -33,13 +34,28 @@ export const Product = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
 
+  useEffect(() => {
+    if (product) setIsActive(true);
+  }, [product]);
+
   return (
     <>
       <div
         className="product__background"
-        onClick={() => navigate("/products")}
+        onClick={() => {
+          setIsActive(false);
+          setTimeout(() => {
+            navigate("/products");
+          }, 400);
+        }}
       ></div>
-      <div className="product__container">
+      <div
+        className={
+          isActive
+            ? "product__container product__container--active"
+            : "product__container"
+        }
+      >
         <form className="product__form" onSubmit={handleEditSubmit}>
           <input
             className="product__name"
@@ -49,8 +65,9 @@ export const Product = () => {
             value={inputValue.productName}
             onChange={handleInput}
           />
+          <p className="product__info">Wartości odżywcze na 100g</p>
           <label htmlFor="energy-value" className="product__box">
-            <span>Wartość energetyczna:</span>
+            <span>Wartość energetyczna</span>
             <div className="product__value-box">
               <input
                 className="product__input"
