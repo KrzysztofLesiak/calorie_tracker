@@ -36,7 +36,7 @@ export const Navigation = () => {
         <ul className="navigation__list" onClick={closeMenu}>
           {/* TODO add class to navlink */}
           <li className="navigation__item">
-            <NavLink to="/">Application</NavLink>
+            <NavLink to="/app">Application</NavLink>
           </li>
           <li className="navigation__item" onClick={closeMenu}>
             <NavLink to="/products">Product Base</NavLink>
