@@ -13,7 +13,7 @@ import {
   signOutUser,
 } from "../utils/firebase/firebase";
 import { FirebaseError } from "firebase/app";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { User } from "firebase/auth";
 
 type UserProviderProps = {
@@ -33,6 +33,7 @@ type UserContextType = {
   };
   token: string;
   user: User | null;
+  isLoading: boolean;
   errorMsg: string;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
   handleRegisterInput: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -48,7 +49,7 @@ export const UserContext = createContext<UserContextType>(
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [inputValue, setInputValue] = useState({
-    email: "test4@test.pl",
+    email: "test@test.pl",
     password: "test123",
   });
   const [registerInputValue, setRegisterInputValue] = useState({
@@ -59,7 +60,9 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   });
   const [token, setToken] = useState("");
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
+  const { state } = useLocation();
   const navigate = useNavigate();
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
@@ -129,7 +132,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       return;
     }
 
-    navigate(-1);
+    state?.from.pathname ? navigate(state.from.pathname) : navigate(-1);
   };
 
   const handleLogout = async () => {
@@ -137,16 +140,20 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     setToken("");
   };
 
+  const onAuthChange = async (user: User | null) => {
+    if (user) {
+      setUser(user);
+      setIsLoading(false);
+      setToken(user.uid);
+    } else {
+      setUser(null);
+      setIsLoading(false);
+      setToken("");
+    }
+  };
+
   useEffect(() => {
-    const unsubscribe = authStateObserver(async (user: User | null) => {
-      if (user) {
-        setUser(user);
-        setToken(user.uid);
-      } else {
-        setUser(null);
-        setToken("");
-      }
-    });
+    const unsubscribe = authStateObserver(onAuthChange);
 
     return unsubscribe;
   }, []);
@@ -158,6 +165,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         registerInputValue,
         token,
         user,
+        isLoading,
         errorMsg,
         handleInput,
         handleRegisterInput,

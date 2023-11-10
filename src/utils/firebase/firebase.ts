@@ -20,6 +20,7 @@ import {
   updateDoc,
   getDoc,
   deleteDoc,
+  setDoc,
 } from "firebase/firestore";
 import { ProductType } from "../../context/ProductContext";
 
@@ -43,7 +44,7 @@ export const createUser = async (
   password: string,
   displayName: string
 ) => {
-  // if (!email || !password || !displayName) return;
+  if (!email || !password || !displayName) return;
 
   try {
     const response = await createUserWithEmailAndPassword(
@@ -56,8 +57,12 @@ export const createUser = async (
 
     const user = response.user;
     // Updating displayName of created user
-    updateProfile(user, {
+    await updateProfile(user, {
       displayName,
+    });
+
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
     });
 
     return user;
@@ -132,7 +137,7 @@ export const getSingleProduct = async (productId: string) => {
   const docRef = doc(db, "products", productId);
   const response = await getDoc(docRef);
 
-  return { id: response.id, ...response.data() };
+  return { id: response.id, ...response.data() } as ProductType;
 };
 
 export const updateProduct = async (product: ProductType) => {
@@ -153,4 +158,47 @@ export const deleteProduct = async (productId: string) => {
   } catch (error) {
     return error;
   }
+};
+
+export const addToList = async (
+  uid: string,
+  date: string,
+  mealType: string,
+  productId: string,
+  quantity: number
+) => {
+  const mealListRef = doc(
+    db,
+    "users",
+    uid,
+    "mealList",
+    date,
+    mealType,
+    productId
+  );
+
+  await setDoc(mealListRef, { id: productId, quantity });
+};
+
+export const getMealList = async (
+  uid: string,
+  date: string,
+  mealType: string
+) => {
+  const docRef = collection(db, "users", uid, "mealList", date, mealType);
+  const response = await getDocs(docRef);
+
+  if (!response.empty) {
+    const data = response.docs.map((doc) => doc.data());
+
+    const products = await Promise.all(
+      data.map(async ({ id, quantity }) => {
+        const product = await getSingleProduct(id);
+        return { ...product, quantity };
+      })
+    );
+    return products;
+  }
+
+  return [];
 };

@@ -38,9 +38,11 @@ export const useProduct = (): UseProductData => {
   const navigate = useNavigate();
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
 
-    setInputValue((prev) => ({ ...prev, [name]: value }));
+    type === "number"
+      ? setInputValue((prev) => ({ ...prev, [name]: parseInt(value) }))
+      : setInputValue((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleNewProductSubmit = async (uid: string) => {

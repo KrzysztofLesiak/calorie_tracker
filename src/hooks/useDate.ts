@@ -14,7 +14,7 @@ const DATE = new Date();
 const DAYS_OF_THE_WEEK = ["Nd", "Pon", "Wt", "Śr", "Czw", "Pt", "Sb"];
 
 export const useDate = (): UseDateData => {
-  const [currentDate, setCurrentDate] = useState("");
+  const [currentDate, setCurrentDate] = useState<string>("");
   const [week, setWeek] = useState<Date[]>([]);
 
   const formatDate = (date: Date) => {
@@ -31,13 +31,13 @@ export const useDate = (): UseDateData => {
 
   const changeWeek = (direction: number) => {
     if (Math.abs(direction) !== 1) throw new Error();
+    else if (!currentDate) return;
 
     const date = new Date(currentDate);
     const newDate = formatDate(
       new Date(date.getTime() - direction * 7 * 24 * 60 * 60 * 1000)
     );
     setCurrentDate(newDate);
-    console.log(newDate);
   };
 
   useEffect(() => {
@@ -46,6 +46,8 @@ export const useDate = (): UseDateData => {
   }, []);
 
   useEffect(() => {
+    if (!currentDate) return;
+
     const newDate = new Date(currentDate);
     const startDate = new Date(
       newDate.getTime() -
@@ -58,8 +60,8 @@ export const useDate = (): UseDateData => {
     const weekList = [];
     for (let i = 0; i < 7; i++) {
       weekList.push(new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000));
-      setWeek(weekList);
     }
+    setWeek(weekList);
   }, [currentDate]);
 
   return {

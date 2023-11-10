@@ -8,6 +8,7 @@ import { ProductsBase } from "./components/ProductsBase";
 import { NewProduct } from "./components/NewProduct";
 import { ProductProvider } from "./context/ProductContext";
 import { Tracker } from "./components/Tracker";
+import { AuthWrapper } from "./components/AuthWrapper";
 
 function App() {
   return (
@@ -22,7 +23,9 @@ function App() {
             <Route path="/products" element={<ProductsBase />} />
             <Route path="/products/:productId" element={<ProductsBase />} />
             <Route path="/products/new" element={<NewProduct />} />
-            <Route path="/app" element={<Tracker />} />
+            <Route element={<AuthWrapper />}>
+              <Route path="/app" element={<Tracker />} />
+            </Route>
           </Routes>
         </div>
       </ProductProvider>
