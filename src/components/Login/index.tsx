@@ -14,8 +14,8 @@ export const Login = () => {
 
   useEffect(() => {
     setErrorMsg("");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    console.log("y");
+  }, [setErrorMsg]);
 
   return (
     <div className="login">

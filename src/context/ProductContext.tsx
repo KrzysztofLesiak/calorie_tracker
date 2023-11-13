@@ -12,6 +12,7 @@ export type ProductType = {
   fats: number;
   carbohydrates: number;
   createdBy?: string;
+  amount?: number;
 };
 
 type ProductContextProps = {

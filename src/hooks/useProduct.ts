@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, useState, useContext } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useState,
+  useContext,
+  useCallback,
+} from "react";
 import {
   addProduct,
   deleteProduct,
@@ -74,11 +80,11 @@ export const useProduct = (): UseProductData => {
     }
   };
 
-  const updateInputs = async (productId: string) => {
+  const updateInputs = useCallback(async (productId: string) => {
     const singleProduct = (await getSingleProduct(productId)) as ProductType;
     setProduct(singleProduct);
     setInputValue(singleProduct);
-  };
+  }, []);
 
   const handleEditSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

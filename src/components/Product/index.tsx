@@ -31,8 +31,7 @@ export const Product = () => {
       fats: 0,
       carbohydrates: 0,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, [productId, setInputValue, updateInputs]);
 
   useEffect(() => {
     if (product) setIsActive(true);

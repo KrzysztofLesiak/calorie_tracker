@@ -165,7 +165,7 @@ export const addToList = async (
   date: string,
   mealType: string,
   productId: string,
-  quantity: number
+  amount: number
 ) => {
   const mealListRef = doc(
     db,
@@ -177,7 +177,7 @@ export const addToList = async (
     productId
   );
 
-  await setDoc(mealListRef, { id: productId, quantity });
+  await setDoc(mealListRef, { id: productId, amount });
 };
 
 export const getMealList = async (
@@ -192,13 +192,27 @@ export const getMealList = async (
     const data = response.docs.map((doc) => doc.data());
 
     const products = await Promise.all(
-      data.map(async ({ id, quantity }) => {
+      data.map(async ({ id, amount }) => {
         const product = await getSingleProduct(id);
-        return { ...product, quantity };
+        return { ...product, amount };
       })
     );
     return products;
   }
 
   return [];
+};
+
+export const deleteMeal = async (
+  uid: string,
+  date: string,
+  mealType: string,
+  productId: string
+) => {
+  try {
+    const docRef = doc(db, "users", uid, "mealList", date, mealType, productId);
+    await deleteDoc(docRef);
+  } catch (error) {
+    return error;
+  }
 };
