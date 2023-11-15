@@ -29,7 +29,7 @@ export const ProductsBase = () => {
       )}
 
       <ProductsList onClickHandle={onClickProductPreview} />
-      {productId && <Product />}
+      {productId && <Product functionality="edit" />}
     </div>
   );
 };

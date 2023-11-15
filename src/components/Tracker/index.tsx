@@ -1,23 +1,14 @@
-import { useDate } from "../../hooks/useDate";
 import { ProductsList } from "../ProductsList";
 import Plus from "../../assets/plus-solid.svg?react";
-import {
-  ChangeEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import {
-  addToList,
-  deleteMeal,
-  getMealList,
-} from "../../utils/firebase/firebase";
-import { UserContext } from "../../context/UserContext";
+import { LegacyRef, useContext, useEffect, useRef, useState } from "react";
 import { ProductType } from "../../context/ProductContext";
-import Arrow from "../../assets/chevron-up-solid.svg?react";
+import Chevron from "../../assets/chevron-up-solid.svg?react";
+import Arrow from "../../assets/arrow-right-solid.svg?react";
 
 import "./Tracker.scss";
+import { Product } from "../Product";
+import { TrackerContext } from "../../context/TrackerContext";
+import { useParams } from "react-router-dom";
 
 export type MealListType = {
   breakfast: ProductType[];
@@ -27,89 +18,52 @@ export type MealListType = {
   supper: ProductType[];
 };
 
-const MEAL_TYPES = [
-  "breakfast",
-  "secondBreakfast",
-  "dinner",
-  "lunch",
-  "supper",
-];
-
 export const Tracker = () => {
-  const { user } = useContext(UserContext);
+  const { productId } = useParams();
+
   const {
+    mealList,
+    isVisible,
+    MEAL_TYPES,
     currentDate,
     DAYS_OF_THE_WEEK,
     week,
     date,
-    setCurrentDate,
+    handleDateSelect,
+    showProductsList,
+    handleDelete,
+    setIsVisible,
+    onClickProductPreview,
+    formatDate,
     handleDateInput,
     changeWeek,
-    formatDate,
-  } = useDate();
-  const [isVisible, setIsVisible] = useState(false);
-  const [meal, setMeal] = useState("");
-  const [mealList, setMealList] = useState({
-    breakfast: [],
-    secondBreakfast: [],
-    dinner: [],
-    lunch: [],
-    supper: [],
-  } as MealListType);
-  const [amount, setAmount] = useState(0);
+  } = useContext(TrackerContext);
+  const [isExpanded, setIsExpanded] = useState({
+    breakfast: false,
+    secondBreakfast: false,
+    dinner: false,
+    lunch: false,
+    supper: false,
+  });
 
-  const handleDateSelect = async (date: Date) => {
-    setCurrentDate(formatDate(date));
-    setIsVisible(false);
-  };
+  const elementRef = useRef<LegacyRef<HTMLUListElement> | undefined>(null);
 
-  const getMeal = useCallback(() => {
-    if (user) {
-      MEAL_TYPES.forEach(async (mealType) => {
-        const response = await getMealList(user.uid, currentDate, mealType);
-        setMealList((prev) => ({
-          ...prev,
-          [mealType as keyof MealListType]: response,
-        }));
-      });
-    }
-  }, [currentDate, user]);
-
-  const addProductToList = async (id: string) => {
-    if (user && amount > 0) {
-      await addToList(user.uid, currentDate, meal, id, amount);
-      setAmount(0);
-    }
-
-    getMeal();
-  };
-
-  const showProductsList = (meal: string) => {
-    setMeal(meal);
-    setIsVisible(true);
-  };
-
-  const handleDelete = async (mealType: string, id: string) => {
-    if (user) await deleteMeal(user.uid, currentDate, mealType, id);
-
-    getMeal();
-  };
-
-  const handleAmount = (event: ChangeEvent<HTMLInputElement>) => {
-    setAmount(Number(event.target.value));
+  const expand = (mealType: string) => {
+    setIsExpanded((prev) => ({
+      ...prev,
+      [mealType]: !prev[mealType as keyof MealListType],
+    }));
   };
 
   useEffect(() => {
-    if (currentDate) {
-      getMeal();
-    }
-  }, [currentDate, getMeal]);
+    if (elementRef.current) console.log(elementRef.current.offsetHeight);
+  }, []);
 
   return (
     <div className="tracker">
       <div className="tracker__date-picker">
         <div className="tracker__input-container">
-          <Arrow
+          <Chevron
             className="tracker__arrow tracker__arrow--previous"
             onClick={() => changeWeek(1)}
           />
@@ -123,7 +77,7 @@ export const Tracker = () => {
             />
             <span className="tracker__date">{date}</span>
           </div>
-          <Arrow
+          <Chevron
             className="tracker__arrow tracker__arrow--next"
             onClick={() => changeWeek(-1)}
           />
@@ -149,41 +103,156 @@ export const Tracker = () => {
           </ul>
         )}
       </div>
-      {MEAL_TYPES.map((mealType) => {
-        return (
-          <div className="tracker__meal-container">
-            <span>{mealType === "breakfast" && "Śniadanie"}</span>
-            <span>{mealType === "secondBreakfast" && "Drugie Śniadanie"}</span>
-            <span>{mealType === "dinner" && "Obiad"}</span>
-            <span>{mealType === "lunch" && "Lunch"}</span>
-            <span>{mealType === "supper" && "Kolacja"}</span>
-            {mealList[mealType as keyof MealListType].length > 0 && (
-              <ul className="tracker__meal-list">
-                {mealList[mealType as keyof MealListType].map((meal) => {
-                  return (
-                    <li className="tracker__meal-item" key={meal.id}>
-                      <p>{meal.productName}</p>
-                      <p>Ilość: {meal.amount}</p>
-                      <p>Wartość energetyczna: {meal.energyValue}</p>
-                      <p>Białko: {meal.proteins}</p>
-                      <button onClick={() => handleDelete(mealType, meal.id!)}>
-                        Usuń
-                      </button>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-            <Plus onClick={() => showProductsList(mealType)} width="3%" />
+      <div className="tracker__meal-container">
+        {MEAL_TYPES.map((mealType) => {
+          return (
+            <div className="tracker__meal-box" key={mealType}>
+              <div className="tracker__header">
+                <span className="tracker__meal-type">
+                  {mealType === "breakfast" && "Śniadanie"}
+                  {mealType === "secondBreakfast" && "Drugie Śniadanie"}
+                  {mealType === "dinner" && "Obiad"}
+                  {mealType === "lunch" && "Lunch"}
+                  {mealType === "supper" && "Kolacja"}
+                </span>
+                <div className="tracker__button-box">
+                  <Plus
+                    className="tracker__plus"
+                    onClick={() => showProductsList(mealType)}
+                  />
+                  <Chevron
+                    className={
+                      isExpanded[mealType as keyof MealListType]
+                        ? "tracker__chevron tracker__chevron--active"
+                        : "tracker__chevron"
+                    }
+                    onClick={() => expand(mealType)}
+                  />
+                </div>
+              </div>
+              <p className="tracker__summary">
+                <span>
+                  {mealList[mealType as keyof MealListType]
+                    .reduce((acc, { amount, energyValue }) => {
+                      return acc + amount! * energyValue;
+                    }, 0)
+                    .toFixed(2)}{" "}
+                  kcal
+                </span>
+                <span>
+                  B:{" "}
+                  {mealList[mealType as keyof MealListType]
+                    .reduce((acc, { amount, proteins }) => {
+                      return acc + amount! * proteins;
+                    }, 0)
+                    .toFixed(2)}
+                </span>
+                <span>
+                  W:{" "}
+                  {mealList[mealType as keyof MealListType]
+                    .reduce((acc, { amount, carbohydrates }) => {
+                      return acc + amount! * carbohydrates;
+                    }, 0)
+                    .toFixed(2)}
+                </span>
+                <span>
+                  T:{" "}
+                  {mealList[mealType as keyof MealListType]
+                    .reduce((acc, { amount, fats }) => {
+                      return acc + amount! * fats;
+                    }, 0)
+                    .toFixed(2)}
+                </span>
+              </p>
+              {mealList[mealType as keyof MealListType].length > 0 ? (
+                <ul
+                  className={
+                    isExpanded[mealType as keyof MealListType]
+                      ? "tracker__meal-list tracker__meal-list--active"
+                      : "tracker__meal-list"
+                  }
+                >
+                  {mealList[mealType as keyof MealListType].map((meal) => {
+                    return (
+                      <li className="tracker__meal-item" key={meal.id}>
+                        <div className="tracker__product">
+                          <span className="tracker__product-name">
+                            {meal.productName}
+                          </span>
+
+                          <button
+                            onClick={() => handleDelete(mealType, meal.id!)}
+                          >
+                            Usuń
+                          </button>
+                        </div>
+                        <span>Ilość: {(meal.amount! * 100).toFixed(2)} g</span>
+                        <div className="tracker__product-info">
+                          <span>
+                            {(meal.energyValue * meal.amount!).toFixed(2)} kcal
+                            B:{" "}
+                          </span>
+                          <span>
+                            {(meal.proteins * meal.amount!).toFixed(2)} W:{" "}
+                          </span>
+                          <span>
+                            {(meal.carbohydrates * meal.amount!).toFixed(2)} T:{" "}
+                          </span>
+                          <span>{(meal.fats * meal.amount!).toFixed(2)}</span>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              ) : (
+                <p
+                  className={
+                    isExpanded[mealType as keyof MealListType]
+                      ? "tracker__meal-list tracker__meal-list--active"
+                      : "tracker__meal-list"
+                  }
+                >
+                  Brak produktów
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <>
+        <div
+          className={
+            isVisible
+              ? "tracker__modal-container tracker__modal-container--active"
+              : "tracker__modal-container"
+          }
+          onClick={() => {
+            setIsVisible(false);
+            setTimeout(() => {}, 400);
+          }}
+        ></div>
+        <div
+          className={
+            isVisible
+              ? "tracker__modal tracker__modal--active"
+              : "tracker__modal"
+          }
+        >
+          <Arrow
+            className="tracker__modal-exit"
+            onClick={() => setIsVisible(false)}
+          />
+          <h4 className="tracker__modal-title">Dodaj produkt</h4>
+          <div className="tracker__products-list">
+            <ProductsList onClickHandle={onClickProductPreview} />
           </div>
-        );
-      })}
-      {isVisible && (
-        <div>
-          <input type="number" value={amount} onChange={handleAmount} min={0} />
-          <ProductsList onClickHandle={addProductToList} />
         </div>
-      )}
+        {productId && (
+          <div className="tracker__product">
+            <Product functionality="add" />
+          </div>
+        )}
+      </>
     </div>
   );
 };

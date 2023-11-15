@@ -52,7 +52,12 @@ nav {
       display: flex;
       flex-direction: column;
       height: calc(100vh - 60px);
-      background-color: $secondary-color;
+      background: rgb(88, 159, 116);
+      background: linear-gradient(
+        146deg,
+        rgba(88, 159, 116, 1) 0%,
+        rgba(121, 212, 118, 1) 100%
+      );
       color: $primary-color;
       z-index: 2;
     }

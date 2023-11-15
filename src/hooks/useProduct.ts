@@ -54,9 +54,12 @@ export const useProduct = (): UseProductData => {
   const handleNewProductSubmit = async (uid: string) => {
     if (inputValue.productName.length > 2) {
       const product = {
-        ...inputValue,
         productName: inputValue.productName.toLowerCase(),
         createdBy: uid,
+        energyValue: inputValue.energyValue / 100,
+        proteins: inputValue.proteins / 100,
+        fats: inputValue.fats / 100,
+        carbohydrates: inputValue.carbohydrates / 100,
       };
 
       await addProduct(product);
