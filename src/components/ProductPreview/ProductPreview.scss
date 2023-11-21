@@ -1,6 +1,8 @@
 .product-preview {
-  border-top: 4px solid #0000002e;
+  border: 2px solid #0000002e;
   padding: 20px;
+  max-width: 400px;
+  margin: auto;
   box-shadow: 0 0px 24px rgba(0, 0, 0, 0.15);
 
   &__name {

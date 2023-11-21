@@ -122,7 +122,7 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
   };
 
   const handleAmount = (event: ChangeEvent<HTMLInputElement>) => {
-    setAmount(event.target.value);
+    if (event.target.value) setAmount(event.target.value);
   };
 
   const onClickProductPreview = (id: string) => {

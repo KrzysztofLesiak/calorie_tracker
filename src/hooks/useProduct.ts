@@ -47,7 +47,7 @@ export const useProduct = (): UseProductData => {
     const { name, value, type } = event.target;
 
     type === "number"
-      ? setInputValue((prev) => ({ ...prev, [name]: parseInt(value) }))
+      ? setInputValue((prev) => ({ ...prev, [name]: parseFloat(value) }))
       : setInputValue((prev) => ({ ...prev, [name]: value }));
   };
 

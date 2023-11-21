@@ -81,10 +81,10 @@ export const Product = ({ functionality }: ProductProps) => {
                 className="product__input"
                 id="energy-value"
                 type="number"
+                step="0.01"
                 name="energyValue"
                 value={inputValue.energyValue}
                 onChange={handleInput}
-                min={0}
                 disabled={user?.uid !== product?.createdBy}
               />
               <span>kcal</span>
@@ -97,6 +97,7 @@ export const Product = ({ functionality }: ProductProps) => {
                 className="product__input"
                 id="proteins"
                 type="number"
+                step="0.01"
                 name="proteins"
                 value={inputValue.proteins}
                 onChange={handleInput}
@@ -113,6 +114,7 @@ export const Product = ({ functionality }: ProductProps) => {
                 className="product__input"
                 id="fats"
                 type="number"
+                step="0.01"
                 name="fats"
                 value={inputValue.fats}
                 onChange={handleInput}
@@ -129,6 +131,7 @@ export const Product = ({ functionality }: ProductProps) => {
                 className="product__input"
                 id="carbohydrates"
                 type="number"
+                step="0.01"
                 name="carbohydrates"
                 value={inputValue.carbohydrates}
                 onChange={handleInput}
@@ -165,6 +168,7 @@ export const Product = ({ functionality }: ProductProps) => {
                     className="product__amount-input"
                     id="amount"
                     type="number"
+                    step="0.01"
                     value={amount}
                     onChange={handleAmount}
                   />{" "}
@@ -176,7 +180,6 @@ export const Product = ({ functionality }: ProductProps) => {
                   if (productId) addProductToList(productId);
                 }}
                 className="product__btn"
-                type="button"
               >
                 Dodaj do listy
               </button>

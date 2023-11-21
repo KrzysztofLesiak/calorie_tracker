@@ -1,14 +1,17 @@
 import { ProductsList } from "../ProductsList";
 import Plus from "../../assets/plus-solid.svg?react";
-import { LegacyRef, useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { ProductType } from "../../context/ProductContext";
-import Chevron from "../../assets/chevron-up-solid.svg?react";
-import Arrow from "../../assets/arrow-right-solid.svg?react";
-
-import "./Tracker.scss";
 import { Product } from "../Product";
 import { TrackerContext } from "../../context/TrackerContext";
 import { useParams } from "react-router-dom";
+import { DatePicker } from "../DatePicker";
+
+import Chevron from "../../assets/chevron-up-solid.svg?react";
+import Arrow from "../../assets/arrow-right-solid.svg?react";
+import Trash from "../../assets/trash-solid.svg?react";
+
+import "./Tracker.scss";
 
 export type MealListType = {
   breakfast: ProductType[];
@@ -25,18 +28,10 @@ export const Tracker = () => {
     mealList,
     isVisible,
     MEAL_TYPES,
-    currentDate,
-    DAYS_OF_THE_WEEK,
-    week,
-    date,
-    handleDateSelect,
     showProductsList,
     handleDelete,
     setIsVisible,
     onClickProductPreview,
-    formatDate,
-    handleDateInput,
-    changeWeek,
   } = useContext(TrackerContext);
   const [isExpanded, setIsExpanded] = useState({
     breakfast: false,
@@ -46,8 +41,6 @@ export const Tracker = () => {
     supper: false,
   });
 
-  const elementRef = useRef<LegacyRef<HTMLUListElement> | undefined>(null);
-
   const expand = (mealType: string) => {
     setIsExpanded((prev) => ({
       ...prev,
@@ -55,54 +48,9 @@ export const Tracker = () => {
     }));
   };
 
-  useEffect(() => {
-    if (elementRef.current) console.log(elementRef.current.offsetHeight);
-  }, []);
-
   return (
     <div className="tracker">
-      <div className="tracker__date-picker">
-        <div className="tracker__input-container">
-          <Chevron
-            className="tracker__arrow tracker__arrow--previous"
-            onClick={() => changeWeek(1)}
-          />
-          <div className="">
-            <input
-              className="tracker__date-input"
-              type="date"
-              value={currentDate}
-              onChange={handleDateInput}
-              pattern="\d{4}-\d{2}-\d{2}"
-            />
-            <span className="tracker__date">{date}</span>
-          </div>
-          <Chevron
-            className="tracker__arrow tracker__arrow--next"
-            onClick={() => changeWeek(-1)}
-          />
-        </div>
-        {week && (
-          <ul className="tracker__days-list">
-            {week.map((day) => {
-              return (
-                <li
-                  key={day.getDate()}
-                  className={
-                    formatDate(day) === currentDate
-                      ? "tracker__days-item tracker__days-item--active"
-                      : "tracker__days-item"
-                  }
-                  onClick={() => handleDateSelect(day)}
-                >
-                  <p>{DAYS_OF_THE_WEEK[day.getDay()]}</p>
-                  <p>{day.getDate()}</p>
-                </li>
-              );
-            })}
-          </ul>
-        )}
-      </div>
+      <DatePicker />
       <div className="tracker__meal-container">
         {MEAL_TYPES.map((mealType) => {
           return (
@@ -180,25 +128,27 @@ export const Tracker = () => {
                             {meal.productName}
                           </span>
 
-                          <button
+                          <Trash
+                            className="tracker__delete"
                             onClick={() => handleDelete(mealType, meal.id!)}
-                          >
-                            Usuń
-                          </button>
+                          />
                         </div>
-                        <span>Ilość: {(meal.amount! * 100).toFixed(2)} g</span>
-                        <div className="tracker__product-info">
+                        <span className="tracker__amount">
+                          {(meal.amount! * 100).toFixed(2)}g
+                        </span>
+                        <div className="tracker__summary">
                           <span>
                             {(meal.energyValue * meal.amount!).toFixed(2)} kcal
-                            B:{" "}
                           </span>
                           <span>
-                            {(meal.proteins * meal.amount!).toFixed(2)} W:{" "}
+                            B: {(meal.proteins * meal.amount!).toFixed(2)}
                           </span>
                           <span>
-                            {(meal.carbohydrates * meal.amount!).toFixed(2)} T:{" "}
+                            W: {(meal.carbohydrates * meal.amount!).toFixed(2)}{" "}
                           </span>
-                          <span>{(meal.fats * meal.amount!).toFixed(2)}</span>
+                          <span>
+                            T: {(meal.fats * meal.amount!).toFixed(2)}
+                          </span>
                         </div>
                       </li>
                     );

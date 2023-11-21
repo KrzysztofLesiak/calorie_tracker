@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { ProductContext } from "../../context/ProductContext";
 import { ProductPreview } from "../ProductPreview";
-import { useLocation } from "react-router-dom";
 import { useSearch } from "../../hooks/useSearch";
+
+import "./ProductList.scss";
 
 type ProductsListProps = {
   onClickHandle: (id: string) => void;
@@ -10,24 +11,19 @@ type ProductsListProps = {
 
 export const ProductsList = ({ onClickHandle }: ProductsListProps) => {
   const { productsList } = useContext(ProductContext);
-  const { pathname, search } = useLocation();
-
-  const { searchInput, searchValue, handleSearch } = useSearch(
-    pathname,
-    search
-  );
+  const { searchInput, searchValue, handleSearch } = useSearch();
 
   return (
     <>
       <input
-        className="product-base__search"
+        className="product-list__search"
         type="search"
         value={decodeURI(searchInput)}
         onChange={handleSearch}
         placeholder="Wyszukaj"
       />
       {productsList.length > 0 ? (
-        <ul className="product-base__list">
+        <ul className="product-list__list">
           {productsList
             .filter((product) =>
               product.productName
@@ -45,7 +41,7 @@ export const ProductsList = ({ onClickHandle }: ProductsListProps) => {
             })}
         </ul>
       ) : (
-        <p className="product-base__empty">Brak produktów na liście</p>
+        <p className="product-list__empty">Brak produktów na liście</p>
       )}
     </>
   );

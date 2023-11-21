@@ -4,94 +4,21 @@
 }
 
 .tracker {
-  &__date-picker {
-    width: 100%;
-    min-width: 285px;
-    padding: 20px 0 20px;
-    background: rgb(88, 159, 116);
-    background: linear-gradient(
-      146deg,
-      rgba(88, 159, 116, 1) 0%,
-      rgba(121, 212, 118, 1) 100%
-    );
-    border-radius: 0 0 20px 20px;
-    position: fixed;
-    z-index: 1;
-  }
-  &__input-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 90%;
-    margin: auto;
-  }
-  &__date-input {
-    visibility: visible;
-    background-color: #589f7400;
-    color: white;
-    border: none;
-    font-size: 2rem;
-    width: 24px;
-    margin: 0 10px 0 0;
-
-    &::-webkit-calendar-picker-indicator {
-      visibility: visible;
-      cursor: pointer;
-      filter: invert(1);
-    }
-  }
-
-  &__date {
-    font-size: 2rem;
-    color: white;
-  }
-
-  &__arrow {
-    width: 25px;
-    padding: 0px;
-    color: white;
-    &--previous {
-      transform: rotateZ(-90deg);
-    }
-    &--next {
-      transform: rotateZ(90deg);
-    }
-  }
-
-  &__days-list {
-    width: 100%;
-    margin: 10px auto 0;
-    display: flex;
-    justify-content: space-around;
-    text-align: center;
-    list-style: none;
-    font-size: 1.4rem;
-    max-width: 320px;
-    color: white;
-  }
-
-  &__days-item {
-    width: 40px;
-    padding: 10px 0;
-    border-radius: 8px;
-    transition: 0.2s ease-in;
-    &--active {
-      color: black;
-      background-color: #d1d1d1;
-    }
-  }
-
   &__meal-container {
     width: 95%;
-    margin: 150px auto 0;
-    background: rgb(184, 181, 181);
+    max-width: 360px;
+    height: 60vh;
+    margin: 28px auto 0;
+    background: rgb(200, 199, 199);
     background: linear-gradient(
       146deg,
-      rgba(184, 181, 181, 1) 0%,
-      rgba(211, 211, 211, 1) 46%
+      rgba(200, 199, 199, 1) 0%,
+      rgba(211, 211, 211, 1) 50%,
+      rgba(200, 199, 199, 1) 100%
     );
     padding: 10px;
     border-radius: 16px;
+    box-shadow: 6px 6px 24px grey;
   }
 
   &__header {
@@ -107,27 +34,21 @@
 
   &__button-box {
     text-align: end;
+    width: fit-content;
   }
 
   &__plus {
-    width: 7%;
+    width: 26px;
     margin-right: 12px;
   }
 
   &__chevron {
-    width: 7%;
+    width: 30px;
     transform: rotateZ(180deg);
     transition: 0.8s;
     &--active {
       transform: rotateZ(0deg);
     }
-  }
-
-  &__summary {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    margin: 4px 8px 0;
   }
 
   &__meal-list {
@@ -166,13 +87,18 @@
   }
 
   &__product-name {
-    margin: 0 0 10px;
     font-size: 1.6rem;
+    margin: 0 0 4px;
+  }
+
+  &__delete {
+    width: 12px;
   }
 
   &__product-info {
-    margin: 10px 0 0;
+    margin: 10px 25px;
     font-size: 1.2rem;
+    color: rgb(110, 110, 110);
   }
 
   &__modal-container {
@@ -183,7 +109,7 @@
     right: 0;
     left: 0;
     bottom: 0;
-
+    z-index: 2;
     &--active {
       display: block;
     }
@@ -191,7 +117,6 @@
 
   &__modal {
     position: fixed;
-    height: 60vh;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -199,6 +124,7 @@
     border-radius: 20px 20px 0 0;
     transform: translateY(100%);
     transition: 0.4s;
+    z-index: 2;
     &--active {
       display: block;
       transform: translateY(0);
@@ -215,14 +141,35 @@
 
   &__modal-title {
     text-align: center;
-    margin: 20px 0;
+    padding: 26px 0;
     font-size: 2rem;
+    box-shadow: 20px 0 20px grey;
+    border-radius: 20px 20px 0 0;
   }
 
   &__products-list {
     width: 100%;
-    height: 100%;
-    overflow-y: scroll;
+    height: 50vh;
     text-align: center;
+    padding: 20px;
+    overflow-y: scroll;
+  }
+
+  &__amount {
+    font-size: 1rem;
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: repeat(4, auto-fit);
+    grid-auto-flow: column;
+    gap: 5px;
+    font-size: 1rem;
+    margin: 4px 0;
+  }
+
+  &__product {
+    z-index: 3;
+    position: relative;
   }
 }

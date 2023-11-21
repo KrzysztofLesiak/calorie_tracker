@@ -31,7 +31,11 @@ export const Navigation = () => {
         <span className="navigation__name">CalorieTracker</span>
       </div>
       <div
-        className={isActive ? "navigation__menu--active" : "navigation__menu"}
+        className={
+          isActive
+            ? "navigation__menu--active navigation__menu"
+            : "navigation__menu"
+        }
       >
         <ul className="navigation__list" onClick={closeMenu}>
           {/* TODO add class to navlink */}
@@ -41,17 +45,8 @@ export const Navigation = () => {
           <li className="navigation__item" onClick={closeMenu}>
             <NavLink to="/products">Product Base</NavLink>
           </li>
-          <li className="navigation__item" onClick={closeMenu}>
-            <NavLink to="/">About Us</NavLink>
-          </li>
-          <li className="navigation__item" onClick={closeMenu}>
-            <NavLink to="/">Contact</NavLink>
-          </li>
         </ul>
         <div className="navigation__container">
-          <div className="navigation__lang">
-            <span>ENG </span>|<span> PL</span>
-          </div>
           <Link to="/login" onClick={closeMenu}>
             <ProfileIcon className="navigation__profile" />
           </Link>
