@@ -4,11 +4,12 @@ import Instagram from "../../assets/instagram.svg?react";
 import Facebook from "../../assets/facebook.svg?react";
 import Linkedin from "../../assets/linkedin.svg?react";
 import "./Home.scss";
+
 export const Home = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/login");
+    navigate("/app");
   };
 
   return (
@@ -26,7 +27,7 @@ export const Home = () => {
         />
         <h2 className="home__text">Get in shape - track calories with us</h2>
         <button className="home__button" onClick={handleClick}>
-          Get started
+          Go to App
         </button>
       </section>
       <section className="home__ftr">

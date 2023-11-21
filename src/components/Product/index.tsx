@@ -3,9 +3,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { useProduct } from "../../hooks/useProduct";
 
-import "./Product.scss";
+import Arrow from "../../assets/arrow-right-solid.svg?react";
 
-export const Product = () => {
+import "./Product.scss";
+import { TrackerContext } from "../../context/TrackerContext";
+
+type ProductProps = {
+  functionality: string;
+};
+
+export const Product = ({ functionality }: ProductProps) => {
   const [isActive, setIsActive] = useState(false);
   const { productId } = useParams();
   const {
@@ -18,8 +25,16 @@ export const Product = () => {
     setInputValue,
   } = useProduct();
   const { user } = useContext(UserContext);
+  const { amount, handleAmount, addProductToList } = useContext(TrackerContext);
 
   const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    setIsActive(false);
+    setTimeout(() => {
+      navigate(-1);
+    }, 400);
+  };
 
   useEffect(() => {
     if (productId) updateInputs(productId);
@@ -31,8 +46,7 @@ export const Product = () => {
       fats: 0,
       carbohydrates: 0,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId]);
+  }, [productId, setInputValue, updateInputs]);
 
   useEffect(() => {
     if (product) setIsActive(true);
@@ -40,15 +54,7 @@ export const Product = () => {
 
   return (
     <>
-      <div
-        className="product__background"
-        onClick={() => {
-          setIsActive(false);
-          setTimeout(() => {
-            navigate("/products");
-          }, 400);
-        }}
-      ></div>
+      <div className="product__background" onClick={handleNavigate}></div>
       <div
         className={
           isActive
@@ -56,6 +62,7 @@ export const Product = () => {
             : "product__container"
         }
       >
+        <Arrow className="product__arrow" onClick={handleNavigate} />
         <form className="product__form" onSubmit={handleEditSubmit}>
           <input
             className="product__name"
@@ -64,6 +71,7 @@ export const Product = () => {
             name="productName"
             value={inputValue.productName}
             onChange={handleInput}
+            disabled={user?.uid !== product?.createdBy}
           />
           <p className="product__info">Wartości odżywcze na 100g</p>
           <label htmlFor="energy-value" className="product__box">
@@ -73,10 +81,11 @@ export const Product = () => {
                 className="product__input"
                 id="energy-value"
                 type="number"
+                step="0.01"
                 name="energyValue"
                 value={inputValue.energyValue}
                 onChange={handleInput}
-                min={0}
+                disabled={user?.uid !== product?.createdBy}
               />
               <span>kcal</span>
             </div>
@@ -88,10 +97,12 @@ export const Product = () => {
                 className="product__input"
                 id="proteins"
                 type="number"
+                step="0.01"
                 name="proteins"
                 value={inputValue.proteins}
                 onChange={handleInput}
                 min={0}
+                disabled={user?.uid !== product?.createdBy}
               />
               <span>g</span>
             </div>
@@ -103,10 +114,12 @@ export const Product = () => {
                 className="product__input"
                 id="fats"
                 type="number"
+                step="0.01"
                 name="fats"
                 value={inputValue.fats}
                 onChange={handleInput}
                 min={0}
+                disabled={user?.uid !== product?.createdBy}
               />
               <span>g</span>
             </div>
@@ -118,27 +131,59 @@ export const Product = () => {
                 className="product__input"
                 id="carbohydrates"
                 type="number"
+                step="0.01"
                 name="carbohydrates"
                 value={inputValue.carbohydrates}
                 onChange={handleInput}
                 min={0}
+                disabled={user?.uid !== product?.createdBy}
               />
               <span>g</span>
             </div>
           </label>
-          {user?.uid === product?.createdBy && (
-            <button type="submit" className="product__edit-btn">
-              Edytuj produkt
-            </button>
+          {functionality === "edit" && (
+            <>
+              {user?.uid === product?.createdBy && (
+                <button type="submit" className="product__btn">
+                  Edytuj produkt
+                </button>
+              )}
+              {user?.uid === product?.createdBy && (
+                <button
+                  onClick={() => handleDelete(productId)}
+                  type="button"
+                  className="product__delete-btn"
+                >
+                  Usuń produkt
+                </button>
+              )}
+            </>
           )}
-          {user?.uid === product?.createdBy && (
-            <button
-              onClick={() => handleDelete(productId)}
-              type="button"
-              className="product__delete-btn"
-            >
-              Usuń produkt
-            </button>
+          {functionality === "add" && (
+            <>
+              <label className="product__amount" htmlFor="amount">
+                <span>Ilość:</span>
+                <div>
+                  <input
+                    className="product__amount-input"
+                    id="amount"
+                    type="number"
+                    step="0.01"
+                    value={amount}
+                    onChange={handleAmount}
+                  />{" "}
+                  g
+                </div>
+              </label>
+              <button
+                onClick={() => {
+                  if (productId) addProductToList(productId);
+                }}
+                className="product__btn"
+              >
+                Dodaj do listy
+              </button>
+            </>
           )}
         </form>
       </div>

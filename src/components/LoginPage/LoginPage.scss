@@ -18,8 +18,8 @@
     width: 50%;
     font-size: 1.6rem;
     padding: 10px 0;
-    border: 2px solid #589f74;
     border-radius: 20px 0 0 0;
+    border-color: #589f74;
     background-color: unset;
     color: #589f74;
     text-decoration: none;
@@ -29,7 +29,12 @@
     }
 
     &.active {
-      background-color: #589f74;
+      background: rgb(88, 159, 116);
+      background: linear-gradient(
+        146deg,
+        rgba(88, 159, 116, 1) 0%,
+        rgba(121, 212, 118, 1) 100%
+      );
       color: white;
     }
   }

@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { useDebounce } from "./useDebounce";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 type UseSearchProps = {
   searchInput: string;
@@ -8,8 +8,13 @@ type UseSearchProps = {
   handleSearch: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export const useSearch = (pathname: string, search: string): UseSearchProps => {
-  const [searchInput, setSearchInput] = useState("");
+export const useSearch = (): UseSearchProps => {
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const searchParam = queryParams.get("q");
+  console.log(searchParam);
+
+  const [searchInput, setSearchInput] = useState(searchParam || "");
   const searchValue = useDebounce(searchInput, 200);
   const navigate = useNavigate();
 
@@ -18,12 +23,12 @@ export const useSearch = (pathname: string, search: string): UseSearchProps => {
   };
 
   useEffect(() => {
-    if (searchValue.length > 0) navigate(`${pathname}?q=${searchValue}`);
-  }, [navigate, pathname, searchValue]);
+    searchValue.length > 0
+      ? queryParams.set("q", `${searchValue}`)
+      : queryParams.delete("q");
 
-  useEffect(() => {
-    setSearchInput(search.slice(3));
-  }, [search]);
+    navigate(`${location.pathname}?${queryParams}`);
+  }, [searchValue]);
 
   return {
     searchInput,

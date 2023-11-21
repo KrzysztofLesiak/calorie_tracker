@@ -1,4 +1,10 @@
-import { ChangeEvent, FormEvent, useState, useContext } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  useState,
+  useContext,
+  useCallback,
+} from "react";
 import {
   addProduct,
   deleteProduct,
@@ -38,17 +44,22 @@ export const useProduct = (): UseProductData => {
   const navigate = useNavigate();
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value, type } = event.target;
 
-    setInputValue((prev) => ({ ...prev, [name]: value }));
+    type === "number"
+      ? setInputValue((prev) => ({ ...prev, [name]: parseFloat(value) }))
+      : setInputValue((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleNewProductSubmit = async (uid: string) => {
     if (inputValue.productName.length > 2) {
       const product = {
-        ...inputValue,
         productName: inputValue.productName.toLowerCase(),
         createdBy: uid,
+        energyValue: inputValue.energyValue / 100,
+        proteins: inputValue.proteins / 100,
+        fats: inputValue.fats / 100,
+        carbohydrates: inputValue.carbohydrates / 100,
       };
 
       await addProduct(product);
@@ -72,11 +83,11 @@ export const useProduct = (): UseProductData => {
     }
   };
 
-  const updateInputs = async (productId: string) => {
+  const updateInputs = useCallback(async (productId: string) => {
     const singleProduct = (await getSingleProduct(productId)) as ProductType;
     setProduct(singleProduct);
     setInputValue(singleProduct);
-  };
+  }, []);
 
   const handleEditSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
