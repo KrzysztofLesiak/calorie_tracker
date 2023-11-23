@@ -12,7 +12,6 @@ export const useSearch = (): UseSearchProps => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const searchParam = queryParams.get("q");
-  console.log(searchParam);
 
   const [searchInput, setSearchInput] = useState(searchParam || "");
   const searchValue = useDebounce(searchInput, 200);

@@ -18,6 +18,7 @@ type UseProductData = {
   product: ProductType | undefined;
   productsList: ProductType[];
   inputValue: ProductType;
+  isEditable: boolean;
   setProduct: React.Dispatch<React.SetStateAction<ProductType | undefined>>;
   setProductsList: React.Dispatch<React.SetStateAction<ProductType[]>>;
   handleInput: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -26,6 +27,8 @@ type UseProductData = {
   handleDelete: (productId: string | undefined) => Promise<void>;
   updateInputs: (productId: string) => Promise<void>;
   handleEditSubmit: (event: FormEvent<HTMLFormElement>) => Promise<void>;
+  handleEdit: () => void;
+  handleCancel: (productId: string) => void;
 };
 
 export const useProduct = (): UseProductData => {
@@ -38,6 +41,7 @@ export const useProduct = (): UseProductData => {
     fats: 0,
     carbohydrates: 0,
   });
+  const [isEditable, setIsEditable] = useState(false);
 
   const { fetchData } = useContext(ProductContext);
 
@@ -101,12 +105,23 @@ export const useProduct = (): UseProductData => {
 
     await updateProduct(productToUpdate);
     fetchData();
+    setIsEditable(false);
+  };
+
+  const handleEdit = () => {
+    setIsEditable(true);
+  };
+
+  const handleCancel = (productId: string) => {
+    setIsEditable(false);
+    updateInputs(productId);
   };
 
   return {
     product,
     productsList,
     inputValue,
+    isEditable,
     setProduct,
     setProductsList,
     handleInput,
@@ -115,5 +130,7 @@ export const useProduct = (): UseProductData => {
     handleDelete,
     updateInputs,
     handleEditSubmit,
+    handleEdit,
+    handleCancel,
   };
 };

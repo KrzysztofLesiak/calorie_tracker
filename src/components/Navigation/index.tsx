@@ -38,7 +38,6 @@ export const Navigation = () => {
         }
       >
         <ul className="navigation__list" onClick={closeMenu}>
-          {/* TODO add class to navlink */}
           <li className="navigation__item">
             <NavLink to="/app">Application</NavLink>
           </li>
@@ -52,11 +51,16 @@ export const Navigation = () => {
           </Link>
         </div>
       </div>
-      {isActive ? (
-        <Cross className="navigation__bars--rotate" onClick={toggleMenu} />
-      ) : (
-        <NavBars className="navigation__bars" onClick={toggleMenu} />
-      )}
+      <div>
+        {isActive ? (
+          <Cross
+            className="navigation__bars--rotate navigation__bars"
+            onClick={toggleMenu}
+          />
+        ) : (
+          <NavBars className="navigation__bars" onClick={toggleMenu} />
+        )}
+      </div>
     </nav>
   );
 };

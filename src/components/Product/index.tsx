@@ -18,11 +18,14 @@ export const Product = ({ functionality }: ProductProps) => {
   const {
     product,
     inputValue,
+    isEditable,
     handleInput,
     updateInputs,
     handleEditSubmit,
     handleDelete,
     setInputValue,
+    handleEdit,
+    handleCancel,
   } = useProduct();
   const { user } = useContext(UserContext);
   const { amount, handleAmount, addProductToList } = useContext(TrackerContext);
@@ -65,27 +68,33 @@ export const Product = ({ functionality }: ProductProps) => {
         <Arrow className="product__arrow" onClick={handleNavigate} />
         <form className="product__form" onSubmit={handleEditSubmit}>
           <input
-            className="product__name"
+            className={
+              isEditable ? "product__name product__name--edit" : "product__name"
+            }
             id="productName"
             type="text"
             name="productName"
             value={inputValue.productName}
             onChange={handleInput}
-            disabled={user?.uid !== product?.createdBy}
+            disabled={!isEditable}
           />
           <p className="product__info">Wartości odżywcze na 100g</p>
           <label htmlFor="energy-value" className="product__box">
             <span>Wartość energetyczna</span>
             <div className="product__value-box">
               <input
-                className="product__input"
+                className={
+                  isEditable
+                    ? "product__input product__input--edit"
+                    : "product__input"
+                }
                 id="energy-value"
                 type="number"
                 step="0.01"
                 name="energyValue"
                 value={inputValue.energyValue}
                 onChange={handleInput}
-                disabled={user?.uid !== product?.createdBy}
+                disabled={!isEditable}
               />
               <span>kcal</span>
             </div>
@@ -94,7 +103,11 @@ export const Product = ({ functionality }: ProductProps) => {
             <span>Białko</span>
             <div className="product__value-box">
               <input
-                className="product__input"
+                className={
+                  isEditable
+                    ? "product__input product__input--edit"
+                    : "product__input"
+                }
                 id="proteins"
                 type="number"
                 step="0.01"
@@ -102,7 +115,7 @@ export const Product = ({ functionality }: ProductProps) => {
                 value={inputValue.proteins}
                 onChange={handleInput}
                 min={0}
-                disabled={user?.uid !== product?.createdBy}
+                disabled={!isEditable}
               />
               <span>g</span>
             </div>
@@ -111,7 +124,11 @@ export const Product = ({ functionality }: ProductProps) => {
             <span>Tłuszcze</span>
             <div className="product__value-box">
               <input
-                className="product__input"
+                className={
+                  isEditable
+                    ? "product__input product__input--edit"
+                    : "product__input"
+                }
                 id="fats"
                 type="number"
                 step="0.01"
@@ -119,7 +136,7 @@ export const Product = ({ functionality }: ProductProps) => {
                 value={inputValue.fats}
                 onChange={handleInput}
                 min={0}
-                disabled={user?.uid !== product?.createdBy}
+                disabled={!isEditable}
               />
               <span>g</span>
             </div>
@@ -128,7 +145,11 @@ export const Product = ({ functionality }: ProductProps) => {
             <span>Węglowodany</span>
             <div className="product__value-box">
               <input
-                className="product__input"
+                className={
+                  isEditable
+                    ? "product__input product__input--edit"
+                    : "product__input"
+                }
                 id="carbohydrates"
                 type="number"
                 step="0.01"
@@ -136,23 +157,41 @@ export const Product = ({ functionality }: ProductProps) => {
                 value={inputValue.carbohydrates}
                 onChange={handleInput}
                 min={0}
-                disabled={user?.uid !== product?.createdBy}
+                disabled={!isEditable}
               />
               <span>g</span>
             </div>
           </label>
           {functionality === "edit" && (
             <>
-              {user?.uid === product?.createdBy && (
-                <button type="submit" className="product__btn">
+              {!isEditable && user?.uid === product?.createdBy && (
+                <button
+                  type="button"
+                  className="product__btn"
+                  onClick={handleEdit}
+                >
                   Edytuj produkt
+                </button>
+              )}
+              {isEditable && user?.uid === product?.createdBy && (
+                <button type="submit" className="product__btn">
+                  Zapisz
+                </button>
+              )}
+              {isEditable && user?.uid === product?.createdBy && (
+                <button
+                  type="button"
+                  className="product__btn--cancel product__btn"
+                  onClick={() => handleCancel(productId!)}
+                >
+                  Anuluj
                 </button>
               )}
               {user?.uid === product?.createdBy && (
                 <button
                   onClick={() => handleDelete(productId)}
                   type="button"
-                  className="product__delete-btn"
+                  className="product__btn--delete product__btn"
                 >
                   Usuń produkt
                 </button>

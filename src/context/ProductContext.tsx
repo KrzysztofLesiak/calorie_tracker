@@ -1,8 +1,6 @@
 import { createContext, JSX, useEffect } from "react";
 import { useProduct } from "../hooks/useProduct";
 import { getProducts } from "../utils/firebase/firebase";
-// import { addProduct, deleteProduct } from "../utils/firebase/firebase";
-// import { useNavigate } from "react-router-dom";
 
 export type ProductType = {
   id?: string;

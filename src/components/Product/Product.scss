@@ -25,7 +25,7 @@
   }
 
   &__arrow {
-    width: 8%;
+    width: 35px;
     position: absolute;
     left: 15px;
     top: 15px;
@@ -43,6 +43,9 @@
     text-transform: capitalize;
     font-weight: 700;
     letter-spacing: 0.2rem;
+    &--edit {
+      border: 1px solid black;
+    }
     &:focus {
       outline: 1px solid black;
     }
@@ -77,6 +80,9 @@
     border-radius: 6px;
     padding: 0 5px;
     margin: 0 5px 0 0;
+    &--edit {
+      border: 1px solid black;
+    }
     &:focus {
       outline: 1px solid black;
     }
@@ -91,17 +97,16 @@
     border: none;
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.272);
-  }
-
-  &__delete-btn {
-    width: 100%;
-    padding: 12px;
-    margin: 12px 0;
-    background-color: unset;
-    border: 2px solid red;
-    color: red;
-    border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.272);
+    &--cancel {
+      background-color: unset;
+      border: 2px solid #589f74;
+      color: black;
+    }
+    &--delete {
+      background-color: unset;
+      border: 2px solid red;
+      color: red;
+    }
   }
 
   &__amount {

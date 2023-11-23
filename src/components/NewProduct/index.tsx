@@ -51,6 +51,7 @@ export const NewProduct = () => {
               className="new-product__input"
               id="proteins"
               type="number"
+              step="0.01"
               name="proteins"
               value={inputValue.proteins}
               onChange={handleInput}
@@ -66,6 +67,7 @@ export const NewProduct = () => {
               className="new-product__input"
               id="fats"
               type="number"
+              step="0.01"
               name="fats"
               value={inputValue.fats}
               onChange={handleInput}
@@ -81,6 +83,7 @@ export const NewProduct = () => {
               className="new-product__input"
               id="carbohydrates"
               type="number"
+              step="0.01"
               name="carbohydrates"
               value={inputValue.carbohydrates}
               onChange={handleInput}
