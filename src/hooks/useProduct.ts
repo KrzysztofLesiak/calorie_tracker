@@ -101,8 +101,6 @@ export const useProduct = (): UseProductData => {
       productName: inputValue.productName.toLowerCase(),
     };
 
-    console.log(productToUpdate);
-
     await updateProduct(productToUpdate);
     fetchData();
     setIsEditable(false);

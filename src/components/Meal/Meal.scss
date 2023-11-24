@@ -1,0 +1,41 @@
+.meal {
+  &__item {
+    padding: 12px 12px;
+    background-color: #e0e0e0;
+    border-top: 2px solid rgba(0, 0, 0, 0.25);
+    font-size: 1.2rem;
+    &:nth-child(1) {
+      border-radius: 12px 12px 0 0;
+    }
+    &:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+    &:only-child {
+      border-radius: 12px 12px 12px 12px;
+    }
+  }
+
+  &__product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__product-name {
+    font-size: 1.6rem;
+    margin: 0 0 4px;
+  }
+
+  &__delete {
+    width: 12px;
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-flow: column;
+    gap: 5px;
+    font-size: 1rem;
+    margin: 4px 0;
+  }
+}
