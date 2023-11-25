@@ -22,7 +22,7 @@ export const Home = () => {
         </h1>
         <img
           className="home__img"
-          src="./public/bowl.png"
+          src="./assets/img/bowl.png"
           alt="Bowl with healthy food"
         />
         <h2 className="home__text">Get in shape - track calories with us</h2>
