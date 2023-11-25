@@ -42,7 +42,7 @@ export const ProductProvider = ({ children }: ProductProviderProps) => {
     <ProductContext.Provider
       value={{
         productsList,
-        fetchData,
+        fetchData
       }}
     >
       {children}

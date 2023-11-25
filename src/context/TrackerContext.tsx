@@ -5,7 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
+  useState
 } from "react";
 import { MealListType } from "../components/Tracker";
 import { useNavigate, useParams } from "react-router-dom";
@@ -44,7 +44,7 @@ const MEAL_TYPES = [
   "secondBreakfast",
   "dinner",
   "lunch",
-  "supper",
+  "supper"
 ];
 
 export const TrackerContext = createContext({} as TrackerProviderData);
@@ -56,7 +56,7 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
     secondBreakfast: [],
     dinner: [],
     lunch: [],
-    supper: [],
+    supper: []
   } as MealListType);
   const [amount, setAmount] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -70,7 +70,7 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
     setCurrentDate,
     formatDate,
     handleDateInput,
-    changeWeek,
+    changeWeek
   } = useDate();
 
   const { productId } = useParams();
@@ -87,7 +87,7 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
         const response = await getMealList(user.uid, currentDate, mealType);
         setMealList((prev) => ({
           ...prev,
-          [mealType as keyof MealListType]: response,
+          [mealType as keyof MealListType]: response
         }));
       });
     }
@@ -156,7 +156,7 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
         addProductToList,
         formatDate,
         handleDateInput,
-        changeWeek,
+        changeWeek
       }}
     >
       {children}

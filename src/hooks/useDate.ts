@@ -19,7 +19,7 @@ export const useDate = (): UseDateData => {
   const [date, setDate] = useState(
     new Intl.DateTimeFormat("pl-PL", {
       month: "long",
-      year: "numeric",
+      year: "numeric"
     }).format(DATE)
   );
   const [week, setWeek] = useState<Date[]>([]);
@@ -60,7 +60,7 @@ export const useDate = (): UseDateData => {
     setDate(
       new Intl.DateTimeFormat("pl-PL", {
         month: "long",
-        year: "numeric",
+        year: "numeric"
       }).format(newDate)
     );
     const startDate = new Date(
@@ -86,6 +86,6 @@ export const useDate = (): UseDateData => {
     setCurrentDate,
     handleDateInput,
     changeWeek,
-    formatDate,
+    formatDate
   };
 };

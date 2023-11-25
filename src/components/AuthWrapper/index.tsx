@@ -9,6 +9,7 @@ export const AuthWrapper = () => {
 
   useEffect(() => {
     if (!user && !isLoading) navigate("/login", { state: { from: location } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, isLoading]);
 
   return <Outlet />;

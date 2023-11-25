@@ -13,7 +13,7 @@ export const DatePicker = () => {
     handleDateSelect,
     formatDate,
     handleDateInput,
-    changeWeek,
+    changeWeek
   } = useContext(TrackerContext);
   return (
     <div className="date-picker">

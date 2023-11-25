@@ -25,7 +25,7 @@ export const Product = ({ functionality }: ProductProps) => {
     handleDelete,
     setInputValue,
     handleEdit,
-    handleCancel,
+    handleCancel
   } = useProduct();
   const { user } = useContext(UserContext);
   const { amount, handleAmount, addProductToList } = useContext(TrackerContext);
@@ -47,7 +47,7 @@ export const Product = ({ functionality }: ProductProps) => {
       energyValue: 0,
       proteins: 0,
       fats: 0,
-      carbohydrates: 0,
+      carbohydrates: 0
     });
   }, [productId, setInputValue, updateInputs]);
 

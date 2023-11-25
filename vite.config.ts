@@ -17,13 +17,12 @@ export default defineConfig(() => {
     "process.env": Object.entries(env).reduce((prev, [key, val]) => {
       return {
         ...prev,
-        [key]: val,
+        [key]: val
       };
-    }, {}),
+    }, {})
   };
-
   return {
     plugins: [react(), svgr()],
-    define: processEnvValues,
+    define: processEnvValues
   };
 });

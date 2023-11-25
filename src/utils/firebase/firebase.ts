@@ -5,7 +5,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  updateProfile,
+  updateProfile
 } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth/cordova";
 import {
@@ -20,7 +20,7 @@ import {
   updateDoc,
   getDoc,
   deleteDoc,
-  setDoc,
+  setDoc
 } from "firebase/firestore";
 import { ProductType } from "../../context/ProductContext";
 
@@ -31,7 +31,7 @@ const firebaseConfig = {
   storageBucket: process.env.STORAGE_BUCKET,
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID,
+  measurementId: process.env.MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
@@ -58,11 +58,11 @@ export const createUser = async (
     const user = response.user;
     // Updating displayName of created user
     await updateProfile(user, {
-      displayName,
+      displayName
     });
 
     await addDoc(collection(db, "users"), {
-      uid: user.uid,
+      uid: user.uid
     });
 
     return user;
@@ -112,7 +112,7 @@ export const addProduct = async (product: ProductType) => {
       fats,
       carbohydrates,
       createdBy,
-      createdTime: Timestamp.now(),
+      createdTime: Timestamp.now()
     });
 
     return docRef;
@@ -144,7 +144,7 @@ export const updateProduct = async (product: ProductType) => {
   try {
     const docRef = doc(db, "products", product.id!);
     await updateDoc(docRef, {
-      ...product,
+      ...product
     });
   } catch (error) {
     return error;

@@ -9,7 +9,7 @@ type ProductPreviewProps = {
 
 export const ProductPreview = ({
   product,
-  onClickHandle,
+  onClickHandle
 }: ProductPreviewProps) => {
   return (
     <li onClick={() => onClickHandle(product.id!)} className="product-preview">

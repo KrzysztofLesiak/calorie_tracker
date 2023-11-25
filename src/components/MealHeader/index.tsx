@@ -22,7 +22,7 @@ type MealHeaderProps = {
 export const MealHeader = ({
   mealType,
   isExpanded,
-  expand,
+  expand
 }: MealHeaderProps) => {
   const { showProductsList } = useContext(TrackerContext);
 

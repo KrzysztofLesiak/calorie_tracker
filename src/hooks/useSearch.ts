@@ -27,11 +27,12 @@ export const useSearch = (): UseSearchProps => {
       : queryParams.delete("q");
 
     navigate(`${location.pathname}?${queryParams}`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   return {
     searchInput,
     searchValue,
-    handleSearch,
+    handleSearch
   };
 };

@@ -14,13 +14,13 @@ export const MealList = () => {
     secondBreakfast: false,
     dinner: false,
     lunch: false,
-    supper: false,
+    supper: false
   });
 
   const expand = (mealType: string) => {
     setIsExpanded((prev) => ({
       ...prev,
-      [mealType]: !prev[mealType as keyof MealListType],
+      [mealType]: !prev[mealType as keyof MealListType]
     }));
   };
 

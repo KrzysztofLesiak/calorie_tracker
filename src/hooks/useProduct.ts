@@ -3,13 +3,13 @@ import {
   FormEvent,
   useState,
   useContext,
-  useCallback,
+  useCallback
 } from "react";
 import {
   addProduct,
   deleteProduct,
   getSingleProduct,
-  updateProduct,
+  updateProduct
 } from "../utils/firebase/firebase";
 import { ProductContext, ProductType } from "../context/ProductContext";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ export const useProduct = (): UseProductData => {
     energyValue: 0,
     proteins: 0,
     fats: 0,
-    carbohydrates: 0,
+    carbohydrates: 0
   });
   const [isEditable, setIsEditable] = useState(false);
 
@@ -63,7 +63,7 @@ export const useProduct = (): UseProductData => {
         energyValue: inputValue.energyValue / 100,
         proteins: inputValue.proteins / 100,
         fats: inputValue.fats / 100,
-        carbohydrates: inputValue.carbohydrates / 100,
+        carbohydrates: inputValue.carbohydrates / 100
       };
 
       await addProduct(product);
@@ -73,7 +73,7 @@ export const useProduct = (): UseProductData => {
         energyValue: 0,
         proteins: 0,
         fats: 0,
-        carbohydrates: 0,
+        carbohydrates: 0
       });
       navigate("/products");
     }
@@ -98,7 +98,7 @@ export const useProduct = (): UseProductData => {
     const productToUpdate = {
       ...product,
       ...inputValue,
-      productName: inputValue.productName.toLowerCase(),
+      productName: inputValue.productName.toLowerCase()
     };
 
     await updateProduct(productToUpdate);
@@ -129,6 +129,6 @@ export const useProduct = (): UseProductData => {
     updateInputs,
     handleEditSubmit,
     handleEdit,
-    handleCancel,
+    handleCancel
   };
 };

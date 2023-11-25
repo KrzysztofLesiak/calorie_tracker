@@ -4,13 +4,13 @@ import {
   JSX,
   ChangeEvent,
   FormEvent,
-  useEffect,
+  useEffect
 } from "react";
 import {
   authStateObserver,
   createUser,
   signIn,
-  signOutUser,
+  signOutUser
 } from "../utils/firebase/firebase";
 import { FirebaseError } from "firebase/app";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -50,13 +50,13 @@ export const UserContext = createContext<UserContextType>(
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [inputValue, setInputValue] = useState({
     email: "test@test.pl",
-    password: "test123",
+    password: "test123"
   });
   const [registerInputValue, setRegisterInputValue] = useState({
     email: "",
     username: "",
     password: "",
-    confirmPassword: "",
+    confirmPassword: ""
   });
   const [token, setToken] = useState("");
   const [user, setUser] = useState<User | null>(null);
@@ -172,7 +172,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         handleRegister,
         handleLogin,
         handleLogout,
-        setErrorMsg,
+        setErrorMsg
       }}
     >
       {children}
