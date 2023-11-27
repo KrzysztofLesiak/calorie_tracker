@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import Chevron from "../../assets/chevron-up-solid.svg?react";
 import { TrackerContext } from "../../context/TrackerContext";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import "./DatePicker.scss";
 
@@ -10,6 +12,8 @@ export const DatePicker = () => {
     DAYS_OF_THE_WEEK,
     week,
     date,
+    isOpen,
+    setIsOpen,
     handleDateSelect,
     formatDate,
     handleDateInput,
@@ -23,14 +27,28 @@ export const DatePicker = () => {
           onClick={() => changeWeek(1)}
         />
         <div className="">
-          <input
+          <ReactDatePicker
+            wrapperClassName="date-picker__date-input"
+            onChange={(date) => {
+              if (date) handleDateInput(date);
+            }}
+            selected={currentDate}
+            open={isOpen}
+          />
+          {/* <input
             className="date-picker__date-input"
+            id="date-input"
             type="date"
             value={currentDate}
             onChange={handleDateInput}
             pattern="\d{4}-\d{2}-\d{2}"
-          />
-          <span className="date-picker__date">{date}</span>
+          /> */}
+          <span
+            className="date-picker__date"
+            onClick={() => setIsOpen((prev) => !prev)}
+          >
+            {date}
+          </span>
         </div>
         <Chevron
           className="date-picker__arrow date-picker__arrow--next"
@@ -44,7 +62,7 @@ export const DatePicker = () => {
               <li
                 key={day.getDate()}
                 className={
-                  formatDate(day) === currentDate
+                  formatDate(day) === formatDate(currentDate)
                     ? "date-picker__days-item date-picker__days-item--active"
                     : "date-picker__days-item"
                 }

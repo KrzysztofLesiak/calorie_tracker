@@ -28,7 +28,7 @@ export const MealList = () => {
     <div className="meal-list__meal-container">
       {MEAL_TYPES.map((mealType) => {
         return (
-          <div key={mealType}>
+          <div className="meal-list__box" key={mealType}>
             <MealHeader
               mealType={mealType}
               isExpanded={isExpanded}
