@@ -27,22 +27,28 @@ $secondary-color: #589f74;
     }
   }
 
+  &__app-name {
+    font-size: 3.6rem;
+    color: #589f74;
+    margin: 32px 0 32px;
+  }
+
   &__title {
-    margin: 80px 0 40px;
     font-size: 2.8rem;
+    margin: 0 0 32px;
   }
 
   &__img {
     transform: translateX(4%);
     width: 80%;
     height: auto;
-    max-width: 295px;
+    max-width: 320px;
   }
 
   &__text {
     font-size: 20px;
     width: 80%;
-    margin: 40px auto 40px;
+    margin: 10px auto 32px;
   }
 
   &__button {
@@ -54,6 +60,11 @@ $secondary-color: #589f74;
     border: none;
     border-radius: 10px;
     font-size: 1.6rem;
+    cursor: pointer;
+  }
+
+  &__background {
+    display: none;
   }
 
   &__ftr {
@@ -66,5 +77,142 @@ $secondary-color: #589f74;
     margin: 12px 28px 12px;
     height: auto;
     color: #589f74;
+  }
+}
+
+@media screen and (min-width: 576px) and (max-width: 992px) {
+  .home {
+    &__honeycomb {
+      height: 60%;
+      width: auto;
+      top: 16%;
+      left: 0px;
+      &:nth-child(2) {
+        top: 28%;
+        left: unset;
+        right: 0px;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .home {
+    justify-content: space-between;
+    min-height: 100vh;
+    padding-top: 80px;
+    overflow: hidden;
+    &__container {
+      text-align: left;
+      width: 35%;
+      margin: 12% 0 0 10%;
+    }
+
+    &__honeycomb {
+      height: 60%;
+      width: auto;
+      top: 70%;
+      left: 0px;
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+
+    &__app-name {
+      font-size: 6rem;
+      margin: 0 0 60px;
+      text-shadow:
+        -1px 0 black,
+        0 1px black,
+        1px 0 black,
+        0 -1px black;
+      &::before {
+        position: absolute;
+        content: attr(data-content);
+        color: rgb(249, 203, 89);
+        clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+        transition: clip-path 275ms ease;
+      }
+      &:hover::before {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      }
+    }
+
+    &__text {
+      font-size: 2rem;
+      width: 80%;
+      margin: 20px 0 32px;
+    }
+
+    &__img {
+      position: absolute;
+      top: 55%;
+      left: 65%;
+      transform: translateX(-50%) translateY(-50%);
+      width: 40%;
+      max-width: 600px;
+    }
+
+    &__background {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 65%;
+      bottom: 0;
+      background-color: $secondary-color;
+      z-index: -5;
+    }
+
+    &__ftr {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    &__icon {
+      width: 28px;
+      margin: 12px 28px 12px;
+      height: auto;
+      color: $primary-color;
+      &::before {
+        overflow: hidden;
+        position: absolute;
+        left: -20px;
+        top: 2px;
+        transform: translateX(-100%);
+        width: 0px;
+        height: 28px;
+        line-height: 28px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 1.6rem;
+        background-color: $primary-color;
+        color: $secondary-color;
+        transition: 1s;
+      }
+      &:hover::before {
+        width: 100px;
+      }
+      &--linkedin {
+        position: relative;
+        &::before {
+          content: "Linkedin";
+        }
+      }
+      &--instagram {
+        position: relative;
+        &::before {
+          content: "Instagram";
+        }
+      }
+      &--facebook {
+        position: relative;
+        &::before {
+          content: "Facebook";
+        }
+      }
+    }
   }
 }

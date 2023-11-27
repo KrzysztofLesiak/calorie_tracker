@@ -33,4 +33,30 @@
       color: white;
     }
   }
+
+  &__honeycomb {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .login-page {
+    &__honeycomb {
+      display: block;
+      position: absolute;
+      top: 28%;
+      left: 0px;
+      z-index: -2;
+      height: 60%;
+      width: auto;
+      top: 16%;
+      left: 0px;
+      &:nth-of-type(2) {
+        transform: rotateZ(180deg);
+        top: 28%;
+        left: unset;
+        right: 0px;
+      }
+    }
+  }
 }
