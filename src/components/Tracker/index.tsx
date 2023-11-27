@@ -6,6 +6,7 @@ import { DatePicker } from "../DatePicker";
 import "./Tracker.scss";
 import { MealList } from "../MealList";
 import { TrackerListModal } from "../TrackerListModal";
+import { Summary } from "../Summary";
 
 export type MealListType = {
   breakfast: ProductType[];
@@ -22,6 +23,7 @@ export const Tracker = () => {
     <div className="tracker">
       <DatePicker />
       <MealList />
+      <Summary />
       <>
         <TrackerListModal />
         {productId && (

@@ -26,14 +26,8 @@
     position: relative;
   }
   &__date-input {
-    // visibility: visible;
-    // background-color: #589f7400;
-    // color: white;
-    // border: none;
-    // font-size: 2rem;
     display: none;
     position: relative;
-    // height: 0px;
   }
 
   &__date {
@@ -77,28 +71,27 @@
   }
 }
 
-.react-datepicker__input-container {
-}
-
-.react-datepicker__triangle {
-  display: none;
-}
-.react-datepicker-popper {
-  transform: translateX(-50%) !important;
-  inset: unset !important;
-  position: absolute;
-  top: 20px !important;
-  left: 50% !important;
-}
-
-.react-datepicker__day-name,
-.react-datepicker__day,
-.react-datepicker__time-name {
-  width: 3rem;
-  line-height: 3rem;
-  font-size: 1.4rem;
-}
-
-.react-datepicker__current-month {
-  font-size: 1.4rem;
+.react-datepicker {
+  border-radius: 12px;
+  overflow: hidden;
+  &__triangle {
+    display: none;
+  }
+  &-popper {
+    transform: translateX(-50%) !important;
+    inset: unset !important;
+    position: absolute;
+    top: 20px !important;
+    left: 50% !important;
+  }
+  &__day-name,
+  &__day,
+  &__time-name {
+    width: 3rem;
+    line-height: 3rem;
+    font-size: 1.4rem;
+  }
+  &__current-month {
+    font-size: 1.4rem;
+  }
 }

@@ -39,10 +39,10 @@ export const Navigation = () => {
       >
         <ul className="navigation__list" onClick={closeMenu}>
           <li className="navigation__item">
-            <NavLink to="/app">Application</NavLink>
+            <NavLink to="/app">Aplikacja</NavLink>
           </li>
           <li className="navigation__item" onClick={closeMenu}>
-            <NavLink to="/products">Product Base</NavLink>
+            <NavLink to="/products">Baza produktów</NavLink>
           </li>
         </ul>
         <div className="navigation__container">

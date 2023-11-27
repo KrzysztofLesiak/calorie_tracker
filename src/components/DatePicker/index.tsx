@@ -3,6 +3,7 @@ import Chevron from "../../assets/chevron-up-solid.svg?react";
 import { TrackerContext } from "../../context/TrackerContext";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import pl from "date-fns/locale/pl";
 
 import "./DatePicker.scss";
 
@@ -28,6 +29,7 @@ export const DatePicker = () => {
         />
         <div className="">
           <ReactDatePicker
+            locale={pl}
             wrapperClassName="date-picker__date-input"
             onChange={(date) => {
               if (date) handleDateInput(date);
