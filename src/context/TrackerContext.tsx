@@ -23,10 +23,12 @@ type TrackerProviderData = {
   amount: string;
   isVisible: boolean;
   MEAL_TYPES: string[];
-  currentDate: string;
+  currentDate: Date;
   DAYS_OF_THE_WEEK: string[];
   week: Date[];
   date: string;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleDateSelect: (date: Date) => Promise<void>;
   showProductsList: (meal: string) => void;
   handleDelete: (mealType: string, id: string) => Promise<void>;
@@ -35,7 +37,7 @@ type TrackerProviderData = {
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
   addProductToList: (id: string) => Promise<void>;
   formatDate: (date: Date) => string;
-  handleDateInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleDateInput: (date: Date) => void;
   changeWeek: (direction: number) => void;
 };
 
@@ -67,6 +69,8 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
     DAYS_OF_THE_WEEK,
     week,
     date,
+    isOpen,
+    setIsOpen,
     setCurrentDate,
     formatDate,
     handleDateInput,
@@ -77,27 +81,32 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
   const navigate = useNavigate();
 
   const handleDateSelect = async (date: Date) => {
-    setCurrentDate(formatDate(date));
+    setCurrentDate(date);
     setIsVisible(false);
   };
 
   const getMeal = useCallback(() => {
     if (user) {
       MEAL_TYPES.forEach(async (mealType) => {
-        const response = await getMealList(user.uid, currentDate, mealType);
+        const response = await getMealList(
+          user.uid,
+          formatDate(currentDate),
+          mealType
+        );
         setMealList((prev) => ({
           ...prev,
           [mealType as keyof MealListType]: response
         }));
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDate, user]);
 
   const addProductToList = async (id: string) => {
     if (user && parseFloat(amount) > 0) {
       await addToList(
         user.uid,
-        currentDate,
+        formatDate(currentDate),
         meal,
         id,
         parseFloat(amount) / 100
@@ -116,7 +125,7 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
   };
 
   const handleDelete = async (mealType: string, id: string) => {
-    if (user) await deleteMeal(user.uid, currentDate, mealType, id);
+    if (user) await deleteMeal(user.uid, formatDate(currentDate), mealType, id);
 
     getMeal();
   };
@@ -147,6 +156,8 @@ export const TrackerProvider = ({ children }: TrackerProviderProps) => {
         DAYS_OF_THE_WEEK,
         week,
         date,
+        isOpen,
+        setIsOpen,
         handleDateSelect,
         showProductsList,
         handleDelete,

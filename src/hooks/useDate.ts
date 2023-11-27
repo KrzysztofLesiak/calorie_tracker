@@ -1,12 +1,14 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type UseDateData = {
-  currentDate: string;
+  currentDate: Date;
   DAYS_OF_THE_WEEK: string[];
   week: Date[];
   date: string;
-  setCurrentDate: React.Dispatch<React.SetStateAction<string>>;
-  handleDateInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentDate: React.Dispatch<React.SetStateAction<Date>>;
+  handleDateInput: (date: Date) => void;
   changeWeek: (direction: number) => void;
   formatDate: (date: Date) => string;
 };
@@ -15,7 +17,7 @@ export const DATE = new Date();
 const DAYS_OF_THE_WEEK = ["Nd", "Pon", "Wt", "Śr", "Czw", "Pt", "Sb"];
 
 export const useDate = (): UseDateData => {
-  const [currentDate, setCurrentDate] = useState<string>("");
+  const [currentDate, setCurrentDate] = useState<Date>(DATE);
   const [date, setDate] = useState(
     new Intl.DateTimeFormat("pl-PL", {
       month: "long",
@@ -23,6 +25,7 @@ export const useDate = (): UseDateData => {
     }).format(DATE)
   );
   const [week, setWeek] = useState<Date[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   const formatDate = (date: Date) => {
     const dateFormat = `${date.getFullYear()}-${
@@ -32,26 +35,21 @@ export const useDate = (): UseDateData => {
     return dateFormat;
   };
 
-  const handleDateInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setCurrentDate(event.target.value);
+  const handleDateInput = (date: Date) => {
+    setCurrentDate(date);
+    setIsOpen(false);
   };
 
   const changeWeek = (direction: number) => {
     if (Math.abs(direction) !== 1) throw new Error();
     else if (!currentDate) return;
 
-    const date = new Date(currentDate);
-
-    const newDate = formatDate(
-      new Date(date.getTime() - direction * 7 * 24 * 60 * 60 * 1000)
+    const newDate = new Date(
+      currentDate.getTime() - direction * 7 * 24 * 60 * 60 * 1000
     );
+
     setCurrentDate(newDate);
   };
-
-  useEffect(() => {
-    const dateFormated = formatDate(DATE);
-    setCurrentDate(dateFormated);
-  }, []);
 
   useEffect(() => {
     if (!currentDate) return;
@@ -83,6 +81,8 @@ export const useDate = (): UseDateData => {
     DAYS_OF_THE_WEEK,
     week,
     date,
+    isOpen,
+    setIsOpen,
     setCurrentDate,
     handleDateInput,
     changeWeek,

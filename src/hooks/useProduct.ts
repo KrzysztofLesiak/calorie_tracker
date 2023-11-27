@@ -60,10 +60,10 @@ export const useProduct = (): UseProductData => {
       const product = {
         productName: inputValue.productName.toLowerCase(),
         createdBy: uid,
-        energyValue: inputValue.energyValue / 100,
-        proteins: inputValue.proteins / 100,
-        fats: inputValue.fats / 100,
-        carbohydrates: inputValue.carbohydrates / 100
+        energyValue: inputValue.energyValue,
+        proteins: inputValue.proteins,
+        fats: inputValue.fats,
+        carbohydrates: inputValue.carbohydrates
       };
 
       await addProduct(product);
