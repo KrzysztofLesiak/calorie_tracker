@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Logo from "../../assets/logo-calorie2.svg?react";
@@ -9,6 +9,7 @@ import "./Navigation.scss";
 
 export const Navigation = () => {
   const [isActive, setIsActive] = useState(false);
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -25,7 +26,11 @@ export const Navigation = () => {
   };
 
   return (
-    <nav className="navigation">
+    <nav
+      className={
+        location.pathname === "/" ? "navigation--home navigation" : "navigation"
+      }
+    >
       <div className="navigation__logo" onClick={handleNavigation}>
         <Logo className="navigation__svg" />
         <span className="navigation__name">CalorieTracker</span>
@@ -39,10 +44,10 @@ export const Navigation = () => {
       >
         <ul className="navigation__list" onClick={closeMenu}>
           <li className="navigation__item">
-            <NavLink to="/app">Application</NavLink>
+            <NavLink to="/app">Aplikacja</NavLink>
           </li>
           <li className="navigation__item" onClick={closeMenu}>
-            <NavLink to="/products">Product Base</NavLink>
+            <NavLink to="/products">Baza produktów</NavLink>
           </li>
         </ul>
         <div className="navigation__container">

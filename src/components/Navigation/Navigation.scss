@@ -39,7 +39,7 @@ nav {
 
   &__name {
     margin: auto;
-    font-size: 20px;
+    font-size: 2rem;
   }
 
   &__menu {
@@ -105,6 +105,77 @@ nav {
     transition: 1s;
     &--rotate {
       transform: rotateZ(45deg);
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .navigation {
+    justify-content: space-between;
+    box-shadow: none;
+    padding: 0 0 0 20px;
+
+    &--home {
+      background-color: unset;
+      border-bottom: unset;
+    }
+
+    &__logo {
+      width: 60%;
+    }
+    &__svg {
+      width: 60px;
+    }
+
+    &__name {
+      margin: 0 0 0 10px;
+      font-size: 3rem;
+    }
+
+    &__menu {
+      position: unset;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      max-height: unset;
+      overflow: unset;
+      width: 60%;
+      background: none;
+      box-shadow: none;
+    }
+
+    &__list {
+      margin: 0 60px 0 0;
+      flex-direction: row;
+      align-items: center;
+      min-width: 440px;
+      background-color: $primary-color;
+      border-radius: 12px;
+      border: 1px solid black;
+      height: 50px;
+      box-shadow: 12px 6px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    &__item {
+      border-bottom: none;
+      width: 100%;
+      transition: transform 0.4s;
+      & a {
+        color: black;
+      }
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    &__profile {
+      border: 1px solid black;
+      border-right: none;
+      box-shadow: 12px 6px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    &__bars {
+      display: none;
     }
   }
 }

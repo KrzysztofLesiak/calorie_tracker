@@ -5,6 +5,8 @@ import { useContext } from "react";
 import { Register } from "../Register";
 import { UserContext } from "../../context/UserContext";
 
+import Honeycomb from "../../assets/honeycomb.svg?react";
+
 export const LoginPage = () => {
   const { token, handleLogout } = useContext(UserContext);
   const { pathname } = useLocation();
@@ -41,6 +43,8 @@ export const LoginPage = () => {
           <>{pathname === "/login" ? <Login /> : <Register />}</>
         </>
       )}
+      <Honeycomb className="login-page__honeycomb" />
+      <Honeycomb className="login-page__honeycomb" />
     </div>
   );
 };

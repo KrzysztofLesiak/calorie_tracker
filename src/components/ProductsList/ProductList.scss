@@ -28,3 +28,32 @@
     }
   }
 }
+
+@media screen and (min-width: 768px) {
+  .product-list {
+    &__list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding: 20px;
+      :nth-child(1) {
+        border-radius: unset;
+      }
+      :last-child {
+        border-radius: unset;
+      }
+      :only-child {
+        border-radius: unset;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .product-list {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      padding: 20px 60px;
+    }
+  }
+}

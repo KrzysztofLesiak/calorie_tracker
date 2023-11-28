@@ -6,3 +6,10 @@
   min-height: calc(100vh - 60px);
   margin-top: 60px;
 }
+
+@media screen and (min-width: 992px) {
+  .App {
+    min-height: 100vh;
+    margin-top: unset;
+  }
+}
