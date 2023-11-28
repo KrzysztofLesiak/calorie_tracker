@@ -21,3 +21,14 @@
     width: 100%;
   }
 }
+
+@media screen and (min-width: 992px) {
+  .summary {
+    position: unset;
+    transform: unset;
+    max-width: unset;
+    grid-area: 3 / 1 / 4 / 3;
+    border-radius: 20px;
+    box-shadow: 6px 6px 24px rgba(128, 128, 128, 0.5);
+  }
+}

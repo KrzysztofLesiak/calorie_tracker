@@ -15,7 +15,7 @@
   );
   border-radius: 0 0 20px 20px;
 
-  box-shadow: 6px 6px 24px grey;
+  box-shadow: 6px 6px 24px rgba(128, 128, 128, 0.5);
 
   &__input-container {
     display: flex;
@@ -93,5 +93,15 @@
   }
   &__current-month {
     font-size: 1.4rem;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .date-picker {
+    grid-area: 1 / 1 / 2 / 3;
+    max-width: unset;
+    margin: unset;
+    border-radius: 20px;
+    box-shadow: 6px 6px 24px rgba(128, 128, 128, 0.5);
   }
 }

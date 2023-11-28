@@ -174,7 +174,10 @@ export const Product = ({ functionality }: ProductProps) => {
                 </button>
               )}
               {isEditable && user?.uid === product?.createdBy && (
-                <button type="submit" className="product__btn">
+                <button
+                  type="submit"
+                  className=" product__btn product__btn--save"
+                >
                   Zapisz
                 </button>
               )}

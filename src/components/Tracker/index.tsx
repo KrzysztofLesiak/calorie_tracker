@@ -5,7 +5,7 @@ import { DatePicker } from "../DatePicker";
 
 import "./Tracker.scss";
 import { MealList } from "../MealList";
-import { TrackerListModal } from "../TrackerListModal";
+import { TrackerList } from "../TrackerList";
 import { Summary } from "../Summary";
 
 export type MealListType = {
@@ -24,14 +24,12 @@ export const Tracker = () => {
       <DatePicker />
       <MealList />
       <Summary />
-      <>
-        <TrackerListModal />
-        {productId && (
-          <div className="tracker__product">
-            <Product functionality="add" />
-          </div>
-        )}
-      </>
+      <TrackerList />
+      {productId && (
+        <div className="tracker__product">
+          <Product functionality="add" />
+        </div>
+      )}
     </div>
   );
 };

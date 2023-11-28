@@ -111,11 +111,14 @@ nav {
 
 @media screen and (min-width: 992px) {
   .navigation {
-    background-color: unset;
     justify-content: space-between;
-    border-bottom: none;
     box-shadow: none;
     padding: 0 0 0 20px;
+
+    &--home {
+      background-color: unset;
+      border-bottom: unset;
+    }
 
     &__logo {
       width: 60%;

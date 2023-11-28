@@ -4,16 +4,18 @@ import { TrackerContext } from "../../context/TrackerContext";
 
 import Arrow from "../../assets/arrow-right-solid.svg?react";
 
-export const TrackerListModal = () => {
+import "./TrackerList.scss";
+
+export const TrackerList = () => {
   const { isVisible, setIsVisible, onClickProductPreview } =
     useContext(TrackerContext);
   return (
-    <>
+    <div className="tracker-list">
       <div
         className={
           isVisible
-            ? "tracker__modal-container tracker__modal-container--active"
-            : "tracker__modal-container"
+            ? "tracker-list__modal-container tracker-list__modal-container--active"
+            : "tracker-list__modal-container"
         }
         onClick={() => {
           setIsVisible(false);
@@ -22,18 +24,20 @@ export const TrackerListModal = () => {
       ></div>
       <div
         className={
-          isVisible ? "tracker__modal tracker__modal--active" : "tracker__modal"
+          isVisible
+            ? "tracker-list__modal tracker-list__modal--active"
+            : "tracker-list__modal"
         }
       >
         <Arrow
-          className="tracker__modal-exit"
+          className="tracker-list__modal-exit"
           onClick={() => setIsVisible(false)}
         />
-        <h4 className="tracker__modal-title">Dodaj produkt</h4>
-        <div className="tracker__products-list">
+        <h4 className="tracker-list__modal-title">Dodaj produkt</h4>
+        <div className="tracker-list__products-list">
           <ProductsList onClickHandle={onClickProductPreview} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
