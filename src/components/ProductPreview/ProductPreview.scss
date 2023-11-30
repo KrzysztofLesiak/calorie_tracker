@@ -8,10 +8,17 @@
   &__name {
     text-transform: capitalize;
     margin-bottom: 10px;
+    font-weight: 700;
   }
 
   &__details {
     font-size: 1.2rem;
+  }
+
+  &__summary {
+    display: grid;
+    grid-template-columns: repeat(4, max-content);
+    gap: 10%;
   }
 }
 

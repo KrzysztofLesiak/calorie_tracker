@@ -1,13 +1,15 @@
 .login-page {
-  width: 90%;
-  max-width: 400px;
+  width: 100%;
   margin: auto;
-  background-color: #f9f9f9;
-  min-height: 500px;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 25px 25px 25px #00000025;
-
+  &__container {
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 25px 25px 25px #00000025;
+  }
   &__selector {
     width: 100%;
     display: flex;
@@ -58,5 +60,11 @@
         right: 0px;
       }
     }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .login-page {
+    padding: 120px 0 40px;
   }
 }

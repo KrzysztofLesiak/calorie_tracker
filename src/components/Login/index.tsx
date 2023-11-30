@@ -1,8 +1,5 @@
 import Logo from "../../assets/logo-calorie2.svg?react";
 import ArrowBracket from "../../assets/arrow-right-to-bracket-solid.svg?react";
-import Google from "../../assets/google.svg?react";
-import Facebook from "../../assets/facebook.svg?react";
-import { Link } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import { UserContext } from "../../context/UserContext";
 
@@ -14,7 +11,6 @@ export const Login = () => {
 
   useEffect(() => {
     setErrorMsg("");
-    console.log("y");
   }, [setErrorMsg]);
 
   return (
@@ -44,20 +40,6 @@ export const Login = () => {
           Zaloguj się <ArrowBracket className="login__arrow" />
         </button>
       </form>
-      <div className="login__others">
-        <div className="login__container">
-          <Link to="/" className="login__link--outline">
-            Zaloguj przy pomocy Google
-          </Link>
-          <Google className="login__icon" />
-        </div>
-        <div className="login__container">
-          <Link to="/" className="login__link">
-            Zaloguj przy pomocy Facebooka
-          </Link>
-          <Facebook className="login__icon" />
-        </div>
-      </div>
     </div>
   );
 };

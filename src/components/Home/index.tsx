@@ -17,7 +17,11 @@ export const Home = () => {
       <section className="home__container">
         <Honeycomb className="home__honeycomb" />
         <Honeycomb className="home__honeycomb" />
-        <h1 className="home__app-name" data-content="CalorieTracker">
+        <h1
+          className="home__app-name"
+          data-content="CalorieTracker"
+          data-testid="home-app-name-test-id"
+        >
           CalorieTracker
         </h1>
         <h2 className="home__title">
