@@ -54,7 +54,6 @@ export const Home = () => {
         <Link
           to={"https://facebook.com"}
           className="home__icon home__icon--facebook"
-          data-testid="link"
         >
           <Facebook />
         </Link>

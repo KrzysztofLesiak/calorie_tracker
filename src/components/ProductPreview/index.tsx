@@ -14,7 +14,7 @@ export const ProductPreview = ({
   return (
     <li onClick={() => onClickHandle(product.id!)} className="product-preview">
       <p className="product-preview__name">{product.productName}</p>
-      <div className="tracker__summary">
+      <div className="product-preview__summary">
         <span>{product.energyValue} kcal</span>
         <span>B: {product.proteins}</span>
         <span>W: {product.carbohydrates} </span>
