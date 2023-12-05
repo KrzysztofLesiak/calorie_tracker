@@ -1,27 +1,76 @@
-# React + TypeScript + Vite
+# CalorieTracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application designed to help users track their daily calorie intake.
+Live demo [CalorieTracker](https://calorie-tracker-kl.netlify.app/).
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [General Information](#general-information)
+- [Build With](#build-with)
+- [Features](#features)
+- [Screenshots](#screenshots)
+- [Installation](#installation)
+- [Roadmap](#roadmap)
+- [Contact](#contact)
 
-## Expanding the ESLint configuration
+## General Information
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+CalorieTracker is an app for users who want to lead a healthy lifestyle. The app helps to monitor the amount of calories consumed. It also allows you to add your own products.
 
-- Configure the top-level `parserOptions` property like this:
+## Build With
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+- React
+- Typescript
+- Firebase
+- Vite
+
+## Features
+
+- User Authentication
+- Calorie Logging
+- Food Database
+- Adding Custom Products
+- Responsive Design
+
+## Screenshots
+
+![Alt text](media/landing_page.png)
+![Alt text](media/login_page.png)
+![Alt text](media/app.png)
+
+## Installation
+
+1.  Contact author for Enviromental Variables.
+2.  Clone Github repository:
+
+```sh
+ git clone https://github.com/KrzysztofLesiak/calorie_tracker.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3.  Install NPM packages:
+
+```sh
+   npm install
+```
+
+4. Add .env file with Enviromental Variables in main folder.
+5. Start develpoment server:
+
+```sh
+   npm run dev
+```
+
+## Roadmap
+
+Project is under active development. Future updates may include:
+
+- Profile page
+- English support
+- Selectable units of measurement (g / ml)
+
+## Contact
+
+Author: Krzysztof Lesiak
+
+[LinkedIn](https://www.linkedin.com/in/lesiak-krzysztof/) |
+[GitHub](https://github.com/KrzysztofLesiak)
