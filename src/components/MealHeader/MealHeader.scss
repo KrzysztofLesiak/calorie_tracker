@@ -6,7 +6,7 @@
 
   &__meal-type {
     font-size: 1.4rem;
-    font-weight: 700;
+    font-family: "Montserrat-Bold";
   }
   &__button-box {
     text-align: end;
@@ -16,12 +16,14 @@
   &__plus {
     width: 26px;
     margin-right: 12px;
+    cursor: pointer;
   }
 
   &__chevron {
     width: 30px;
     transform: rotateZ(180deg);
     transition: 0.8s;
+    cursor: pointer;
     &--active {
       transform: rotateZ(0deg);
     }

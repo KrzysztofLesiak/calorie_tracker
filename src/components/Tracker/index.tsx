@@ -7,6 +7,8 @@ import "./Tracker.scss";
 import { MealList } from "../MealList";
 import { TrackerList } from "../TrackerList";
 import { Summary } from "../Summary";
+import { useContext, MouseEvent } from "react";
+import { TrackerContext } from "../../context/TrackerContext";
 
 export type MealListType = {
   breakfast: ProductType[];
@@ -18,9 +20,20 @@ export type MealListType = {
 
 export const Tracker = () => {
   const { productId } = useParams();
+  const { isOpen, setIsOpen } = useContext(TrackerContext);
+
+  const closeDatePicker = (event: MouseEvent<HTMLElement>) => {
+    const target = event.target;
+
+    if (target instanceof HTMLElement) {
+      if (target?.className.includes("react-datepicker")) return;
+    }
+
+    if (isOpen) setIsOpen(false);
+  };
 
   return (
-    <div className="tracker">
+    <div className="tracker" onClick={closeDatePicker}>
       <DatePicker />
       <MealList />
       <Summary />

@@ -44,14 +44,18 @@ export const Navigation = () => {
       >
         <ul className="navigation__list" onClick={closeMenu}>
           <li className="navigation__item">
-            <NavLink to="/app">Aplikacja</NavLink>
+            <NavLink className="navigation__link" to="/app">
+              Aplikacja
+            </NavLink>
           </li>
           <li className="navigation__item" onClick={closeMenu}>
-            <NavLink to="/products">Baza produktów</NavLink>
+            <NavLink className="navigation__link" to="/products">
+              Baza produktów
+            </NavLink>
           </li>
         </ul>
         <div className="navigation__container">
-          <Link to="/login" onClick={closeMenu}>
+          <Link to="/login" onClick={closeMenu} aria-label="login">
             <ProfileIcon className="navigation__profile" />
           </Link>
         </div>

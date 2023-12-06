@@ -4,21 +4,20 @@
   max-width: 400px;
   margin: auto;
   box-shadow: 6px 6px 24px rgba(128, 128, 128, 0.5);
+  cursor: pointer;
 
   &__name {
     text-transform: capitalize;
     margin-bottom: 10px;
-    font-weight: 700;
-  }
-
-  &__details {
-    font-size: 1.2rem;
+    font-family: "Montserrat-Bold";
   }
 
   &__summary {
     display: grid;
-    grid-template-columns: repeat(4, max-content);
-    gap: 10%;
+    width: 100%;
+    font-size: 1.3rem;
+    grid-template-columns: 27% repeat(3, 20%);
+    gap: 4%;
   }
 }
 

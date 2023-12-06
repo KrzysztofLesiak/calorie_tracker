@@ -17,7 +17,6 @@ export const Meal = ({ meal, mealType }: MealProps) => {
     <li className="meal__item">
       <div className="meal__product">
         <span className="meal__product-name">{meal.productName}</span>
-
         <Trash
           className="meal__delete"
           onClick={() => handleDelete(mealType, meal.id!)}

@@ -1,20 +1,34 @@
 $primary-color: #e0e0e0;
 $secondary-color: #589f74;
 
+@font-face {
+  font-family: "Montserrat-Medium";
+  src: url("./assets/fonts/Montserrat-Medium.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat-Bold";
+  src: url("./assets/fonts/Montserrat-Bold.ttf");
+}
+
 *,
 *::after,
 *::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat-Medium";
 }
 
 html {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat-Medium";
   font-size: 10px;
 }
 
 body {
   background-color: $primary-color;
+}
+
+button {
+  cursor: pointer;
 }
