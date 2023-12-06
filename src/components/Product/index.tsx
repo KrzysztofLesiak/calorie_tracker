@@ -67,101 +67,99 @@ export const Product = ({ functionality }: ProductProps) => {
       >
         <Arrow className="product__arrow" onClick={handleNavigate} />
         <form className="product__form" onSubmit={handleEditSubmit}>
-          <input
-            className={
-              isEditable ? "product__name product__name--edit" : "product__name"
-            }
-            id="productName"
-            type="text"
-            name="productName"
-            value={inputValue.productName}
-            onChange={handleInput}
-            disabled={!isEditable}
-          />
+          <label>
+            <input
+              className={
+                isEditable
+                  ? "product__name product__name--edit"
+                  : "product__name"
+              }
+              id="productName"
+              type="text"
+              name="productName"
+              value={inputValue.productName}
+              onChange={handleInput}
+              disabled={!isEditable}
+            />
+          </label>
           <p className="product__info">Wartości odżywcze na 100g</p>
-          <label htmlFor="energy-value" className="product__box">
-            <span>Wartość energetyczna</span>
-            <div className="product__value-box">
-              <input
-                className={
-                  isEditable
-                    ? "product__input product__input--edit"
-                    : "product__input"
-                }
-                id="energy-value"
-                type="number"
-                step="0.01"
-                name="energyValue"
-                value={inputValue.energyValue}
-                onChange={handleInput}
-                disabled={!isEditable}
-              />
-              <span>kcal</span>
-            </div>
-          </label>
-          <label htmlFor="proteins" className="product__box">
-            <span>Białko</span>
-            <div className="product__value-box">
-              <input
-                className={
-                  isEditable
-                    ? "product__input product__input--edit"
-                    : "product__input"
-                }
-                id="proteins"
-                type="number"
-                step="0.01"
-                name="proteins"
-                value={inputValue.proteins}
-                onChange={handleInput}
-                min={0}
-                disabled={!isEditable}
-              />
-              <span>g</span>
-            </div>
-          </label>
-          <label htmlFor="fats" className="product__box">
-            <span>Tłuszcze</span>
-            <div className="product__value-box">
-              <input
-                className={
-                  isEditable
-                    ? "product__input product__input--edit"
-                    : "product__input"
-                }
-                id="fats"
-                type="number"
-                step="0.01"
-                name="fats"
-                value={inputValue.fats}
-                onChange={handleInput}
-                min={0}
-                disabled={!isEditable}
-              />
-              <span>g</span>
-            </div>
-          </label>
-          <label htmlFor="carbohydrates" className="product__box">
-            <span>Węglowodany</span>
-            <div className="product__value-box">
-              <input
-                className={
-                  isEditable
-                    ? "product__input product__input--edit"
-                    : "product__input"
-                }
-                id="carbohydrates"
-                type="number"
-                step="0.01"
-                name="carbohydrates"
-                value={inputValue.carbohydrates}
-                onChange={handleInput}
-                min={0}
-                disabled={!isEditable}
-              />
-              <span>g</span>
-            </div>
-          </label>
+          <div className="product__grid">
+            <label htmlFor="energy-value" className="product__box">
+              <span>Wartość energetyczna</span>
+            </label>
+            <input
+              className={
+                isEditable
+                  ? "product__input product__input--edit"
+                  : "product__input"
+              }
+              id="energy-value"
+              type="number"
+              step="0.01"
+              name="energyValue"
+              value={inputValue.energyValue}
+              onChange={handleInput}
+              disabled={!isEditable}
+            />
+            <span className="product__unit">kcal</span>
+            <label htmlFor="proteins" className="product__box">
+              <span>Białko</span>
+            </label>
+            <input
+              className={
+                isEditable
+                  ? "product__input product__input--edit"
+                  : "product__input"
+              }
+              id="proteins"
+              type="number"
+              step="0.01"
+              name="proteins"
+              value={inputValue.proteins}
+              onChange={handleInput}
+              min={0}
+              disabled={!isEditable}
+            />
+            <span className="product__unit">g</span>
+            <label htmlFor="fats" className="product__box">
+              <span>Tłuszcze</span>
+            </label>
+            <input
+              className={
+                isEditable
+                  ? "product__input product__input--edit"
+                  : "product__input"
+              }
+              id="fats"
+              type="number"
+              step="0.01"
+              name="fats"
+              value={inputValue.fats}
+              onChange={handleInput}
+              min={0}
+              disabled={!isEditable}
+            />
+            <span className="product__unit">g</span>
+            <label htmlFor="carbohydrates" className="product__box">
+              <span>Węglowodany</span>
+            </label>
+            <input
+              className={
+                isEditable
+                  ? "product__input product__input--edit"
+                  : "product__input"
+              }
+              id="carbohydrates"
+              type="number"
+              step="0.01"
+              name="carbohydrates"
+              value={inputValue.carbohydrates}
+              onChange={handleInput}
+              min={0}
+              disabled={!isEditable}
+            />
+            <span className="product__unit">g</span>
+          </div>
           {functionality === "edit" && (
             <>
               {!isEditable && user?.uid === product?.createdBy && (
