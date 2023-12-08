@@ -1,3 +1,5 @@
+@use "../../index";
+
 .login {
   width: 80%;
   height: fit-content;
@@ -8,27 +10,39 @@
   &__logo {
     width: 80px;
     margin: 12px 0 0;
-    color: #e0e0e0;
+    color: index.$primary-color;
   }
 
   &__error {
-    padding: 12px;
-    font-size: 1.4rem;
+    padding: 6px;
+    font-size: 1.2rem;
     background-color: rgba(255, 0, 0, 0.25);
-    color: rgb(203, 0, 0);
-    border-radius: 12px;
-    margin: 10px 0;
+    color: rgb(177, 0, 0);
+    border-radius: 12px 12px 0 0;
+    border: 1px solid red;
+    border-bottom: none;
+    &--others {
+      border-radius: 12px;
+      border: 1px solid red;
+      margin-bottom: 10px;
+      padding: 12px;
+    }
   }
 
   &__input {
     width: 100%;
-    margin: 12px 0;
+    margin: 0 0 12px;
     padding: 12px;
     font-size: 1.4rem;
     border-radius: 10px;
     border: 1px solid grey;
     outline: none;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
+    &--error {
+      border-radius: 0 0 10px 10px;
+      border: 1px solid red;
+      border-top: none;
+    }
   }
 
   &__button {
@@ -38,7 +52,7 @@
     width: 100%;
     padding: 6px;
     margin: 12px 0;
-    background-color: #589f74;
+    background-color: index.$button-color;
     color: white;
     font-size: 1.4rem;
     border: none;
@@ -52,7 +66,7 @@
   }
 
   &__others {
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid index.$primary-color;
   }
 
   &__container {

@@ -1,3 +1,5 @@
+@use "../../index";
+
 .login-page {
   width: 100%;
   margin: auto;
@@ -20,10 +22,10 @@
     width: 50%;
     font-size: 1.6rem;
     padding: 10px 0;
-    border: 2px solid #589f74;
+    border: 2px solid index.$button-color;
     border-radius: 20px 0 0 0;
     background-color: unset;
-    color: #589f74;
+    color: index.$button-color;
     text-decoration: none;
 
     &:nth-child(2) {
@@ -31,7 +33,7 @@
     }
 
     &.active {
-      background-color: #589f74;
+      background-color: index.$button-color;
       color: white;
     }
   }
