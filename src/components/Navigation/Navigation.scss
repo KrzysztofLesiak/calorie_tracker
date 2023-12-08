@@ -1,5 +1,4 @@
-$primary-color: #e0e0e0;
-$secondary-color: #589f74;
+@use "../../index";
 
 nav {
   position: relative;
@@ -20,7 +19,7 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  background-color: $primary-color;
+  background-color: index.$primary-color;
   z-index: 3;
   border-bottom: 1px solid #575757;
   box-shadow: 0 10px 12px #00000025;
@@ -60,7 +59,7 @@ nav {
       rgba(88, 159, 116, 1) 0%,
       rgba(121, 212, 118, 1) 100%
     );
-    color: $primary-color;
+    color: index.$primary-color;
     border-radius: 20px 0 20px 20px;
     transition: max-height 0.6s ease-in-out;
     box-shadow: -10px 10px 20px rgba(0, 0, 0, 0.3);
@@ -93,7 +92,7 @@ nav {
 
   &__profile {
     margin: 20px 0px;
-    background-color: $primary-color;
+    background-color: index.$primary-color;
     width: 50px;
     height: 50px;
     padding: 10px 20px 10px 10px;
@@ -156,7 +155,7 @@ nav {
       flex-direction: row;
       align-items: center;
       min-width: 460px;
-      background-color: $primary-color;
+      background-color: index.$primary-color;
       border-radius: 12px;
       border: 1px solid black;
       height: 50px;

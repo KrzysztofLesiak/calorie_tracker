@@ -225,6 +225,13 @@ export const UserProvider = ({ children }: UserProviderProps) => {
       return;
     }
 
+    setRegisterInputValue({
+      email: "",
+      username: "",
+      password: "",
+      confirmPassword: ""
+    });
+
     navigate("/");
   };
 
@@ -270,7 +277,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     registerInputValue.password.match(passwordRegex)
       ? setMatchValidation((prev) => ({ ...prev, password: true }))
       : setMatchValidation((prev) => ({ ...prev, password: false }));
-    registerInputValue.password === registerInputValue.confirmPassword
+    registerInputValue.password === registerInputValue.confirmPassword &&
+    registerInputValue.confirmPassword.length
       ? setMatchValidation((prev) => ({ ...prev, confirmPassword: true }))
       : setMatchValidation((prev) => ({ ...prev, confirmPassword: false }));
     // eslint-disable-next-line react-hooks/exhaustive-deps

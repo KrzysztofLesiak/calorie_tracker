@@ -1,3 +1,5 @@
+@use "../../index";
+
 .login {
   width: 80%;
   height: fit-content;
@@ -8,7 +10,7 @@
   &__logo {
     width: 80px;
     margin: 12px 0 0;
-    color: #e0e0e0;
+    color: index.$primary-color;
   }
 
   &__error {
@@ -50,7 +52,7 @@
     width: 100%;
     padding: 6px;
     margin: 12px 0;
-    background-color: #589f74;
+    background-color: index.$button-color;
     color: white;
     font-size: 1.4rem;
     border: none;
@@ -64,7 +66,7 @@
   }
 
   &__others {
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid index.$primary-color;
   }
 
   &__container {

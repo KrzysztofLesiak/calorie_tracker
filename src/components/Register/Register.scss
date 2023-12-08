@@ -1,3 +1,5 @@
+@use "../../index";
+
 .register {
   width: 80%;
   margin: auto;
@@ -6,7 +8,7 @@
   &__logo {
     width: 80px;
     margin: 12px 0 0;
-    color: #e0e0e0;
+    color: index.$primary-color;
   }
 
   &__password {
