@@ -10,6 +10,7 @@ import { ProductsBase } from "./pages/Products/ProductsBase";
 import { NewProduct } from "./pages/Products/NewProduct";
 import { AuthWrapper } from "./pages/Login/AuthWrapper";
 import { Tracker } from "./pages/App/Tracker";
+import { Profile } from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -27,11 +28,12 @@ function App() {
               <Route path="/products/new" element={<NewProduct />} />
               <Route element={<AuthWrapper />}>
                 <>
-                  <>
-                    <Route path="/app" element={<Tracker />} />
-                    <Route path="/app/:productId" element={<Tracker />} />
-                  </>
+                  <Route path="/app" element={<Tracker />} />
+                  <Route path="/app/:productId" element={<Tracker />} />
                 </>
+              </Route>
+              <Route element={<AuthWrapper />}>
+                <Route path="/profile" element={<Profile />} />
               </Route>
             </Routes>
           </div>

@@ -1,10 +1,10 @@
-import { UserContext } from "../../../context/UserContext";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import Logo from "../../../assets/logo-calorie2.svg?react";
 import ArrowBracket from "../../../assets/arrow-right-to-bracket-solid.svg?react";
 
 import "./Register.scss";
+import { useUsers } from "../../../hooks/useUsers";
 
 export const Register = () => {
   const {
@@ -14,7 +14,7 @@ export const Register = () => {
     setErrorMsg,
     handleRegisterInput,
     handleRegister
-  } = useContext(UserContext);
+  } = useUsers();
 
   useEffect(() => {
     setErrorMsg({

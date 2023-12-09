@@ -1,13 +1,13 @@
 import Logo from "../../../assets/logo-calorie2.svg?react";
 import ArrowBracket from "../../../assets/arrow-right-to-bracket-solid.svg?react";
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../../context/UserContext";
+import { useEffect } from "react";
 
 import "./Login.scss";
+import { useUsers } from "../../../hooks/useUsers";
 
 export const Login = () => {
   const { inputValue, errorMsg, handleInput, handleLogin, setErrorMsg } =
-    useContext(UserContext);
+    useUsers();
 
   useEffect(() => {
     setErrorMsg({

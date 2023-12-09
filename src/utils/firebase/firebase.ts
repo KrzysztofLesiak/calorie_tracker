@@ -23,6 +23,7 @@ import {
   setDoc
 } from "firebase/firestore";
 import { ProductType } from "../../context/ProductContext";
+import { UserDataType } from "../../hooks/useUsers";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -62,7 +63,11 @@ export const createUser = async (
     });
 
     await addDoc(collection(db, "users"), {
-      uid: user.uid
+      uid: user.uid,
+      displayName: user.displayName,
+      sex: "other",
+      height: 0,
+      weight: 0
     });
 
     return user;
@@ -73,6 +78,25 @@ export const createUser = async (
 
     return error;
   }
+};
+
+export const updateUser = async (user: User, userData: UserDataType) => {
+  const { sex, height, weight } = userData;
+  const docRef = doc(db, "users", user.uid);
+  await setDoc(docRef, {
+    sex,
+    height,
+    weight
+  });
+
+  console.log(userData);
+};
+
+export const getSingleUserDocs = async (user: User) => {
+  const docRef = doc(db, "users", user.uid);
+  const response = await getDoc(docRef);
+
+  return { ...response.data() };
 };
 
 export const signIn = async (email: string, password: string) => {
