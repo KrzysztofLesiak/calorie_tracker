@@ -17,7 +17,7 @@ type UseDateData = {
 export const DATE = new Date();
 
 export const useDate = (): UseDateData => {
-  const { i18n, t } = useTranslation();
+  const { i18n } = useTranslation();
   const [currentDate, setCurrentDate] = useState<Date>(DATE);
   const [date, setDate] = useState(
     new Intl.DateTimeFormat("en-EN", {
@@ -28,7 +28,9 @@ export const useDate = (): UseDateData => {
   const [week, setWeek] = useState<Date[]>([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const DAYS_OF_THE_WEEK = i18n.t("daysOfTheWeek", { returnObjects: true });
+  const DAYS_OF_THE_WEEK = i18n.t("daysOfTheWeek", {
+    returnObjects: true
+  }) as string[];
 
   const formatDate = (date: Date) => {
     const dateFormat = `${date.getFullYear()}-${
@@ -80,7 +82,7 @@ export const useDate = (): UseDateData => {
       weekList.push(new Date(startDate.getTime() + i * 24 * 60 * 60 * 1000));
     }
     setWeek(weekList);
-  }, [currentDate]);
+  }, [currentDate, i18n.language]);
 
   useEffect(() => {
     setDate(
