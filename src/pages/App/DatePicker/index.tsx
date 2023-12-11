@@ -6,8 +6,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import pl from "date-fns/locale/pl";
 
 import "./DatePicker.scss";
+import { useTranslation } from "react-i18next";
 
 export const DatePicker = () => {
+  const { i18n } = useTranslation();
   const {
     currentDate,
     DAYS_OF_THE_WEEK,
@@ -29,7 +31,7 @@ export const DatePicker = () => {
         />
         <div className="">
           <ReactDatePicker
-            locale={pl}
+            locale={i18n.language === "pl" ? pl : ""}
             wrapperClassName="date-picker__date-input"
             onChange={(date) => {
               if (date) handleDateInput(date);
@@ -37,14 +39,6 @@ export const DatePicker = () => {
             selected={currentDate}
             open={isOpen}
           />
-          {/* <input
-            className="date-picker__date-input"
-            id="date-input"
-            type="date"
-            value={currentDate}
-            onChange={handleDateInput}
-            pattern="\d{4}-\d{2}-\d{2}"
-          /> */}
           <span
             className="date-picker__date"
             onClick={() => setIsOpen((prev) => !prev)}

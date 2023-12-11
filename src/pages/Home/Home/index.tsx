@@ -5,10 +5,12 @@ import Facebook from "../../../assets/facebook.svg?react";
 import Linkedin from "../../../assets/linkedin.svg?react";
 import "./Home.scss";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleClick = () => {
     navigate("/app");
@@ -30,18 +32,16 @@ export const Home = () => {
         >
           CalorieTracker
         </h1>
-        <h2 className="home__title">
-          Zdrowe życie zaczyna się od liczenia kalorii
-        </h2>
+        <h2 className="home__title">{t("title")}</h2>
         <img
           className={isLoading ? "home__img home__img--loading" : "home__img "}
           src="./assets/img/bowl.png"
           alt="Bowl with healthy food"
           onLoad={handleImgLoad}
         />
-        <h3 className="home__text">Zadbaj o formę - śledź z nami kalorie</h3>
+        <h3 className="home__text">{t("homeText")}</h3>
         <button className="home__button" onClick={handleClick}>
-          Go to App
+          {t("goToApp")}
         </button>
         <div className="home__background"></div>
       </section>

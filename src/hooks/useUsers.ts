@@ -316,6 +316,7 @@ export const useUsers = (): UseUsersData => {
 
   useEffect(() => {
     updateStates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   useEffect(() => {

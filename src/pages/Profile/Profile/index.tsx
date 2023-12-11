@@ -4,11 +4,14 @@ import { UserContext } from "../../../context/UserContext";
 import { useUsers } from "../../../hooks/useUsers";
 
 import "./Profile.scss";
+import { useTranslation } from "react-i18next";
 
 export const Profile = () => {
   const { user } = useContext(UserContext);
   const { userData, handleProfileChange, handleProfileEdit, handleLogout } =
     useUsers();
+
+  const { t } = useTranslation();
 
   const calorieNeeds = () => {
     let activity = 1.8;
@@ -42,9 +45,12 @@ export const Profile = () => {
   return (
     <div className="profile">
       <div className="profile__container">
-        <h2 className="profile__title">Witaj, {user?.displayName}!</h2>
+        <h2 className="profile__title">
+          {t("profileTitle")}
+          {user?.displayName}!
+        </h2>
         <form className="profile__form" onSubmit={handleProfileEdit}>
-          <span>Płeć:</span>
+          <span>{t("sex")}:</span>
           <div className="profile__radio-box">
             <label>
               <input
@@ -56,7 +62,7 @@ export const Profile = () => {
                 checked={userData.sex === "male"}
                 onChange={handleProfileChange}
               />
-              <span>Mężczyzna</span>
+              <span>{t("male")}</span>
             </label>
             <label>
               <input
@@ -68,7 +74,7 @@ export const Profile = () => {
                 checked={userData.sex === "female"}
                 onChange={handleProfileChange}
               />
-              <span>Kobieta</span>
+              <span>{t("female")}</span>
             </label>
             <label>
               <input
@@ -80,10 +86,10 @@ export const Profile = () => {
                 checked={userData.sex === "other"}
                 onChange={handleProfileChange}
               />
-              <span>Inna</span>
+              <span>{t("other")}</span>
             </label>
           </div>
-          <span>Aktywność fizyczna:</span>
+          <span>{t("activity")}:</span>
           <div className="profile__radio-box">
             <label>
               <input
@@ -95,7 +101,7 @@ export const Profile = () => {
                 checked={userData.activity === "low"}
                 onChange={handleProfileChange}
               />
-              <span>Niska</span>
+              <span>{t("low")}</span>
             </label>
             <label>
               <input
@@ -107,7 +113,7 @@ export const Profile = () => {
                 checked={userData.activity === "medium"}
                 onChange={handleProfileChange}
               />
-              <span>Średnia</span>
+              <span>{t("medium")}</span>
             </label>
             <label>
               <input
@@ -119,10 +125,10 @@ export const Profile = () => {
                 checked={userData.activity === "high"}
                 onChange={handleProfileChange}
               />
-              <span>Wysoka</span>
+              <span>{t("high")}</span>
             </label>
           </div>
-          <label>Wiek:</label>
+          <label>{t("age")}:</label>
           <input
             className="profile__input"
             type="number"
@@ -131,7 +137,7 @@ export const Profile = () => {
             value={userData.age}
             onChange={handleProfileChange}
           />
-          <label>Wzrost [cm]:</label>
+          <label>{t("height")} [cm]:</label>
           <input
             className="profile__input"
             type="number"
@@ -140,7 +146,7 @@ export const Profile = () => {
             value={userData.height}
             onChange={handleProfileChange}
           />
-          <label>Waga [kg]:</label>
+          <label>{t("weight")} [kg]:</label>
           <input
             className="profile__input"
             type="number"
@@ -151,14 +157,14 @@ export const Profile = () => {
             onChange={handleProfileChange}
           />
           <button className="profile__save" type="submit">
-            Zapisz
+            {t("save")}
           </button>
         </form>
         <p className="profile__needs">
-          Twoje zapotrzebowanie kaloryczne wynosi {calorieNeeds().toFixed(2)}
+          {t("needs")}: {calorieNeeds().toFixed(2)}
         </p>
         <button className="profile__logout" onClick={handleLogout}>
-          Wyloguj
+          {t("logout")}
         </button>
       </div>
     </div>

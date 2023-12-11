@@ -3,10 +3,12 @@ import { UserContext } from "../../../context/UserContext";
 import { useProduct } from "../../../hooks/useProduct";
 
 import "./NewProduct.scss";
+import { useTranslation } from "react-i18next";
 
 export const NewProduct = () => {
   const { inputValue, handleInput, handleNewProductSubmit } = useProduct();
   const { user } = useContext(UserContext);
+  const { t } = useTranslation();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -18,7 +20,7 @@ export const NewProduct = () => {
     <div className="new-product">
       <form className="new-product__form" onSubmit={handleSubmit}>
         <label htmlFor="productName" className="new-product__name-box">
-          <p>Nazwa produktu</p>
+          <p>{t("productName")}</p>
           <input
             className="new-product__name"
             id="productName"
@@ -29,9 +31,9 @@ export const NewProduct = () => {
             required
           />
         </label>
-        <p className="new-product__info">Wartości odżywcze na 100g</p>
+        <p className="new-product__info">{t("nutritionalValues")}</p>
         <label htmlFor="energy-value" className="new-product__box">
-          <span>Wartość energetyczna</span>
+          <span>{t("energyValue")}</span>
           <div className="new-product__value-box"></div>
           <input
             className="new-product__input"
@@ -45,7 +47,7 @@ export const NewProduct = () => {
           kcal
         </label>
         <label htmlFor="proteins" className="new-product__box">
-          <span>Białko</span>
+          <span>{t("proteins")}</span>
           <div className="new-product__value-box">
             <input
               className="new-product__input"
@@ -61,7 +63,7 @@ export const NewProduct = () => {
           </div>
         </label>
         <label htmlFor="fats" className="new-product__box">
-          <span>Tłuszcze</span>
+          <span>{t("fats")}</span>
           <div className="new-product__value-box">
             <input
               className="new-product__input"
@@ -77,7 +79,7 @@ export const NewProduct = () => {
           </div>
         </label>
         <label htmlFor="carbohydrates" className="new-product__box">
-          <span>Węglowodany</span>
+          <span>{t("carbohydrates")}</span>
           <div className="new-product__value-box">
             <input
               className="new-product__input"
@@ -93,7 +95,7 @@ export const NewProduct = () => {
           </div>
         </label>
         <button className="new-product__add-btn" type="submit">
-          Dodaj produkt
+          {t("addProduct")}
         </button>
       </form>
     </div>

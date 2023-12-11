@@ -4,6 +4,7 @@ import { ProductPreview } from "../ProductPreview";
 import { useSearch } from "../../hooks/useSearch";
 
 import "./ProductList.scss";
+import { useTranslation } from "react-i18next";
 
 type ProductsListProps = {
   onClickHandle: (id: string) => void;
@@ -12,6 +13,7 @@ type ProductsListProps = {
 export const ProductsList = ({ onClickHandle }: ProductsListProps) => {
   const { productsList } = useContext(ProductContext);
   const { searchInput, searchValue, handleSearch } = useSearch();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -41,7 +43,7 @@ export const ProductsList = ({ onClickHandle }: ProductsListProps) => {
             })}
         </ul>
       ) : (
-        <p className="product-list__empty">Brak produktów na liście</p>
+        <p className="product-list__empty">{t("emptyList")}</p>
       )}
     </>
   );

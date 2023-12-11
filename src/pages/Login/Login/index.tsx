@@ -4,10 +4,12 @@ import { useEffect } from "react";
 
 import "./Login.scss";
 import { useUsers } from "../../../hooks/useUsers";
+import { useTranslation } from "react-i18next";
 
 export const Login = () => {
   const { inputValue, errorMsg, handleInput, handleLogin, setErrorMsg } =
     useUsers();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setErrorMsg({
@@ -52,13 +54,13 @@ export const Login = () => {
           }
           type="password"
           name="password"
-          placeholder="Hasło"
+          placeholder={t("password")}
           value={inputValue.password}
           onChange={handleInput}
           required
         />
         <button className="login__button" type="submit">
-          Zaloguj się <ArrowBracket className="login__arrow" />
+          {t("login")} <ArrowBracket className="login__arrow" />
         </button>
       </form>
     </div>

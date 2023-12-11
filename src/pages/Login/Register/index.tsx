@@ -5,6 +5,7 @@ import ArrowBracket from "../../../assets/arrow-right-to-bracket-solid.svg?react
 
 import "./Register.scss";
 import { useUsers } from "../../../hooks/useUsers";
+import { useTranslation } from "react-i18next";
 
 export const Register = () => {
   const {
@@ -15,6 +16,7 @@ export const Register = () => {
     handleRegisterInput,
     handleRegister
   } = useUsers();
+  const { t } = useTranslation();
 
   useEffect(() => {
     setErrorMsg({
@@ -50,7 +52,7 @@ export const Register = () => {
           } ${errorMsg.username ? "register__input--error" : ""}`}
           type="username"
           name="username"
-          placeholder="Nazwa użytkownika"
+          placeholder={t("username")}
           value={registerInputValue.username}
           onChange={handleRegisterInput}
         />
@@ -67,16 +69,16 @@ export const Register = () => {
           } ${errorMsg.password.length ? "register__input--error" : ""}`}
           type="password"
           name="password"
-          placeholder="Hasło"
+          placeholder={t("password")}
           value={registerInputValue.password}
           onChange={handleRegisterInput}
         />
         <ul className="register__password">
-          <li>Hasło musi zawierać cyfry</li>
-          <li>Hasło musi zawierać wielkie litery</li>
-          <li>Hasło musi zawierać małe litery</li>
-          <li>Hasło musi zawierać znak specjalny @$!%*?&</li>
-          <li>Długość hasła musi być większa niż 6 znaków</li>
+          <li>{t("passwordDigits")}</li>
+          <li>{t("passwordUpperCase")}</li>
+          <li>{t("passwordLowerCase")}</li>
+          <li>{t("passwordSpecialChar")}</li>
+          <li>{t("passwordLength")}</li>
         </ul>
         {errorMsg.confirmPassword && (
           <p className="login__error">{errorMsg.confirmPassword}</p>
@@ -87,7 +89,7 @@ export const Register = () => {
           } ${errorMsg.confirmPassword ? "register__input--error" : ""}`}
           type="password"
           name="confirmPassword"
-          placeholder="Potwierdź hasło"
+          placeholder={t("confirmPassword")}
           value={registerInputValue.confirmPassword}
           onChange={handleRegisterInput}
         />

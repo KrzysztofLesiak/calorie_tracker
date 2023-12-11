@@ -6,10 +6,12 @@ import { Register } from "../Register";
 import { UserContext } from "../../../context/UserContext";
 
 import Honeycomb from "../../../assets/honeycomb.svg?react";
+import { useTranslation } from "react-i18next";
 
 export const LoginPage = () => {
   const { user } = useContext(UserContext);
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   return (
     <div className="login-page">
@@ -27,7 +29,7 @@ export const LoginPage = () => {
                     : "login-page__link"
                 }
               >
-                Logowanie
+                {t("logging")}
               </Link>
               <Link
                 to="/register"
@@ -37,7 +39,7 @@ export const LoginPage = () => {
                     : "login-page__link"
                 }
               >
-                Rejestracja
+                {t("registration")}
               </Link>
             </div>
             <>{pathname === "/login" ? <Login /> : <Register />}</>
