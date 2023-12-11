@@ -6,6 +6,7 @@ import Chevron from "../../../assets/chevron-up-solid.svg?react";
 import { MealListType } from "../Tracker";
 
 import "./MealHeader.scss";
+import { useTranslation } from "react-i18next";
 
 type MealHeaderProps = {
   mealType: string;
@@ -25,16 +26,11 @@ export const MealHeader = ({
   expand
 }: MealHeaderProps) => {
   const { showProductsList } = useContext(TrackerContext);
+  const { t } = useTranslation();
 
   return (
     <div className="meal-header">
-      <span className="meal-header__meal-type">
-        {mealType === "breakfast" && "Śniadanie"}
-        {mealType === "secondBreakfast" && "Drugie Śniadanie"}
-        {mealType === "dinner" && "Obiad"}
-        {mealType === "lunch" && "Lunch"}
-        {mealType === "supper" && "Kolacja"}
-      </span>
+      <span className="meal-header__meal-type">{t(mealType)}</span>
       <div className="meal-header__button-box">
         <Plus
           className="meal-header__plus"

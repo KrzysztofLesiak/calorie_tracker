@@ -6,6 +6,7 @@ import "./MealList.scss";
 import { Meal } from "../Meal";
 import { MealHeader } from "../MealHeader";
 import { MealSummary } from "../MealSummary";
+import { useTranslation } from "react-i18next";
 
 export const MealList = () => {
   const { mealList, MEAL_TYPES } = useContext(TrackerContext);
@@ -16,6 +17,8 @@ export const MealList = () => {
     lunch: false,
     supper: false
   });
+
+  const { t } = useTranslation();
 
   const expand = (mealType: string) => {
     setIsExpanded((prev) => ({
@@ -55,7 +58,7 @@ export const MealList = () => {
                     : "meal-list__list"
                 }
               >
-                Brak produktów
+                {t("emptyList")}
               </p>
             )}
           </div>
