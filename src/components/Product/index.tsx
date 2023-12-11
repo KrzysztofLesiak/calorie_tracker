@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { useProduct } from "../../hooks/useProduct";
 
@@ -7,6 +7,7 @@ import Arrow from "../../assets/arrow-right-solid.svg?react";
 
 import "./Product.scss";
 import { TrackerContext } from "../../context/TrackerContext";
+import { useTranslation } from "react-i18next";
 
 type ProductProps = {
   functionality: string;
@@ -29,13 +30,15 @@ export const Product = ({ functionality }: ProductProps) => {
   } = useProduct();
   const { user } = useContext(UserContext);
   const { amount, handleAmount, addProductToList } = useContext(TrackerContext);
-
+  const { t } = useTranslation();
+  const location = useLocation();
   const navigate = useNavigate();
 
   const handleNavigate = () => {
     setIsActive(false);
     setTimeout(() => {
-      navigate(-1);
+      const prevPage = location.pathname.replace(`${productId}`, "");
+      navigate(prevPage);
     }, 400);
   };
 
@@ -82,10 +85,10 @@ export const Product = ({ functionality }: ProductProps) => {
               disabled={!isEditable}
             />
           </label>
-          <p className="product__info">Wartości odżywcze na 100g</p>
+          <p className="product__info">{t("nutritionalValues")}</p>
           <div className="product__grid">
             <label htmlFor="energy-value" className="product__box">
-              <span>Wartość energetyczna</span>
+              <span>{t("energyValue")}</span>
             </label>
             <input
               className={
@@ -103,7 +106,7 @@ export const Product = ({ functionality }: ProductProps) => {
             />
             <span className="product__unit">kcal</span>
             <label htmlFor="proteins" className="product__box">
-              <span>Białko</span>
+              <span>{t("proteins")}</span>
             </label>
             <input
               className={
@@ -122,7 +125,7 @@ export const Product = ({ functionality }: ProductProps) => {
             />
             <span className="product__unit">g</span>
             <label htmlFor="fats" className="product__box">
-              <span>Tłuszcze</span>
+              <span>{t("fats")}</span>
             </label>
             <input
               className={
@@ -141,7 +144,7 @@ export const Product = ({ functionality }: ProductProps) => {
             />
             <span className="product__unit">g</span>
             <label htmlFor="carbohydrates" className="product__box">
-              <span>Węglowodany</span>
+              <span>{t("carbohydrates")}</span>
             </label>
             <input
               className={
@@ -168,7 +171,7 @@ export const Product = ({ functionality }: ProductProps) => {
                   className="product__btn"
                   onClick={handleEdit}
                 >
-                  Edytuj produkt
+                  {t("editProduct")}
                 </button>
               )}
               {isEditable && user?.uid === product?.createdBy && (
@@ -176,7 +179,7 @@ export const Product = ({ functionality }: ProductProps) => {
                   type="submit"
                   className=" product__btn product__btn--save"
                 >
-                  Zapisz
+                  {t("save")}
                 </button>
               )}
               {isEditable && user?.uid === product?.createdBy && (
@@ -185,16 +188,7 @@ export const Product = ({ functionality }: ProductProps) => {
                   className="product__btn--cancel product__btn"
                   onClick={() => handleCancel(productId!)}
                 >
-                  Anuluj
-                </button>
-              )}
-              {user?.uid === product?.createdBy && (
-                <button
-                  onClick={() => handleDelete(productId)}
-                  type="button"
-                  className="product__btn--delete product__btn"
-                >
-                  Usuń produkt
+                  {t("cancel")}
                 </button>
               )}
             </>
@@ -202,7 +196,7 @@ export const Product = ({ functionality }: ProductProps) => {
           {functionality === "add" && (
             <>
               <label className="product__amount" htmlFor="amount">
-                <span>Ilość:</span>
+                <span>{t("amount")}:</span>
                 <div>
                   <input
                     className="product__amount-input"
@@ -221,7 +215,7 @@ export const Product = ({ functionality }: ProductProps) => {
                 }}
                 className="product__btn"
               >
-                Dodaj do listy
+                {t("addToList")}
               </button>
             </>
           )}

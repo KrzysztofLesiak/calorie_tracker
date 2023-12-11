@@ -23,6 +23,7 @@ import {
   setDoc
 } from "firebase/firestore";
 import { ProductType } from "../../context/ProductContext";
+import { UserDataType } from "../../hooks/useUsers";
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -62,17 +63,37 @@ export const createUser = async (
     });
 
     await addDoc(collection(db, "users"), {
-      uid: user.uid
+      uid: user.uid,
+      displayName: user.displayName,
+      sex: "other",
+      height: 0,
+      weight: 0
     });
 
     return user;
   } catch (error: unknown) {
     if (!(error instanceof FirebaseError)) throw { error };
-
-    console.log(error);
-
     return error;
   }
+};
+
+export const updateUser = async (user: User, userData: UserDataType) => {
+  const { sex, height, weight, activity, age } = userData;
+  const docRef = doc(db, "users", user.uid);
+  await setDoc(docRef, {
+    sex,
+    height,
+    weight,
+    activity,
+    age
+  });
+};
+
+export const getSingleUserDocs = async (user: User) => {
+  const docRef = doc(db, "users", user.uid);
+  const response = await getDoc(docRef);
+
+  return { ...response.data() };
 };
 
 export const signIn = async (email: string, password: string) => {

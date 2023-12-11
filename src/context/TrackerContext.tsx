@@ -7,11 +7,11 @@ import {
   useEffect,
   useState
 } from "react";
-import { MealListType } from "../components/Tracker";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDate } from "../hooks/useDate";
 import { UserContext } from "./UserContext";
 import { addToList, deleteMeal, getMealList } from "../utils/firebase/firebase";
+import { MealListType } from "../pages/App/Tracker";
 
 type TrackerProviderProps = {
   children: JSX.Element;

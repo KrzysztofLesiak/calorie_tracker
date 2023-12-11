@@ -86,8 +86,39 @@ nav {
   }
 
   &__container {
-    text-align: end;
+    display: flex;
+    justify-content: space-between;
     margin: auto 0px;
+  }
+
+  &__lang-box {
+    margin: auto 0;
+    height: 50px;
+    border-radius: 0 12px 12px 0;
+    color: rgb(129, 129, 129);
+    background-color: index.$primary-color;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+
+  &__lang {
+    margin: 0 12px;
+  }
+
+  &__flag {
+    width: 32px;
+    height: 20px;
+    filter: grayscale(0.5);
+    &--active {
+      filter: none;
+      border: 2px solid black;
+      scale: 1.4;
+    }
+  }
+
+  &__input {
+    display: none;
   }
 
   &__profile {
@@ -151,7 +182,7 @@ nav {
     }
 
     &__list {
-      margin: 0 60px 0 0;
+      margin: 0 20px 0 0;
       flex-direction: row;
       align-items: center;
       min-width: 460px;
@@ -170,6 +201,13 @@ nav {
       &:hover {
         transform: scale(1.1);
       }
+    }
+
+    &__lang-box {
+      margin: auto 20px auto 0;
+      border-radius: 12px 12px 12px 12px;
+      border: 1px solid black;
+      box-shadow: 12px 6px 24px rgba(0, 0, 0, 0.5);
     }
 
     &__profile {

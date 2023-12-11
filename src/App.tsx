@@ -1,15 +1,16 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.scss";
 import { Navigation } from "./components/Navigation";
-import { Home } from "./components/Home";
 import { UserProvider } from "./context/UserContext";
-import { LoginPage } from "./components/LoginPage";
-import { ProductsBase } from "./components/ProductsBase";
-import { NewProduct } from "./components/NewProduct";
 import { ProductProvider } from "./context/ProductContext";
-import { Tracker } from "./components/Tracker";
-import { AuthWrapper } from "./components/AuthWrapper";
 import { TrackerProvider } from "./context/TrackerContext";
+import { Home } from "./pages/Home/Home";
+import { LoginPage } from "./pages/Login/LoginPage";
+import { ProductsBase } from "./pages/Products/ProductsBase";
+import { NewProduct } from "./pages/Products/NewProduct";
+import { AuthWrapper } from "./pages/Login/AuthWrapper";
+import { Tracker } from "./pages/App/Tracker";
+import { Profile } from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -27,11 +28,12 @@ function App() {
               <Route path="/products/new" element={<NewProduct />} />
               <Route element={<AuthWrapper />}>
                 <>
-                  <>
-                    <Route path="/app" element={<Tracker />} />
-                    <Route path="/app/:productId" element={<Tracker />} />
-                  </>
+                  <Route path="/app" element={<Tracker />} />
+                  <Route path="/app/:productId" element={<Tracker />} />
                 </>
+              </Route>
+              <Route element={<AuthWrapper />}>
+                <Route path="/profile" element={<Profile />} />
               </Route>
             </Routes>
           </div>

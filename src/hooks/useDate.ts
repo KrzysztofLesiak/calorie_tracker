@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type UseDateData = {
   currentDate: Date;
@@ -14,18 +15,20 @@ type UseDateData = {
 };
 
 export const DATE = new Date();
-const DAYS_OF_THE_WEEK = ["Nd", "Pon", "Wt", "Śr", "Czw", "Pt", "Sb"];
 
 export const useDate = (): UseDateData => {
+  const { i18n, t } = useTranslation();
   const [currentDate, setCurrentDate] = useState<Date>(DATE);
   const [date, setDate] = useState(
-    new Intl.DateTimeFormat("pl-PL", {
+    new Intl.DateTimeFormat("en-EN", {
       month: "long",
       year: "numeric"
     }).format(DATE)
   );
   const [week, setWeek] = useState<Date[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  const DAYS_OF_THE_WEEK = i18n.t("daysOfTheWeek", { returnObjects: true });
 
   const formatDate = (date: Date) => {
     const dateFormat = `${date.getFullYear()}-${
@@ -56,10 +59,13 @@ export const useDate = (): UseDateData => {
 
     const newDate = new Date(currentDate);
     setDate(
-      new Intl.DateTimeFormat("pl-PL", {
-        month: "long",
-        year: "numeric"
-      }).format(newDate)
+      new Intl.DateTimeFormat(
+        `${i18n.language}-${i18n.language.toUpperCase()}`,
+        {
+          month: "long",
+          year: "numeric"
+        }
+      ).format(newDate)
     );
     const startDate = new Date(
       newDate.getTime() -
@@ -75,6 +81,18 @@ export const useDate = (): UseDateData => {
     }
     setWeek(weekList);
   }, [currentDate]);
+
+  useEffect(() => {
+    setDate(
+      new Intl.DateTimeFormat(
+        `${i18n.language}-${i18n.language.toUpperCase()}`,
+        {
+          month: "long",
+          year: "numeric"
+        }
+      ).format(DATE)
+    );
+  }, [i18n.language]);
 
   return {
     currentDate,
