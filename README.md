@@ -31,6 +31,7 @@ CalorieTracker is an app for users who want to lead a healthy lifestyle. The app
 - Food Database
 - Adding Custom Products
 - Responsive Design
+- Multi-language
 
 ## Screenshots
 
@@ -64,8 +65,6 @@ CalorieTracker is an app for users who want to lead a healthy lifestyle. The app
 
 Project is under active development. Future updates may include:
 
-- Profile page
-- English support
 - Selectable units of measurement (g / ml)
 
 ## Contact
