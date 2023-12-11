@@ -73,23 +73,20 @@ export const createUser = async (
     return user;
   } catch (error: unknown) {
     if (!(error instanceof FirebaseError)) throw { error };
-
-    console.log(error);
-
     return error;
   }
 };
 
 export const updateUser = async (user: User, userData: UserDataType) => {
-  const { sex, height, weight } = userData;
+  const { sex, height, weight, activity, age } = userData;
   const docRef = doc(db, "users", user.uid);
   await setDoc(docRef, {
     sex,
     height,
-    weight
+    weight,
+    activity,
+    age
   });
-
-  console.log(userData);
 };
 
 export const getSingleUserDocs = async (user: User) => {

@@ -1,3 +1,60 @@
 .profile {
-  margin: 100px auto;
+  width: 100%;
+  margin: auto;
+  font-size: 1.4rem;
+  &__container {
+    width: 90%;
+    max-width: 300px;
+    margin: auto;
+  }
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin: 40px auto;
+  }
+  &__radio-box {
+    display: flex;
+    flex-direction: column;
+  }
+  &__radio {
+    vertical-align: middle;
+    margin: 4px;
+  }
+
+  &__input {
+    border-radius: 6px;
+    width: 100%;
+    text-align: end;
+  }
+
+  &__save {
+    grid-area: 6/1/7/3;
+    padding: 4px;
+    color: #017e32;
+    background-color: unset;
+    border: 2px solid #017e32;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.272);
+  }
+
+  &__needs {
+    text-align: center;
+  }
+
+  &__logout {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    background-color: #017e32;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.272);
+  }
 }

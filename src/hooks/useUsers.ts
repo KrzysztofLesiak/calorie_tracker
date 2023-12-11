@@ -23,6 +23,8 @@ export type UserDataType = {
   sex: string;
   height: number;
   weight: number;
+  activity: string;
+  age: number;
 };
 
 type UseUsersData = {
@@ -92,7 +94,9 @@ export const useUsers = (): UseUsersData => {
   const [userData, setUserData] = useState({
     sex: "other",
     height: 0,
-    weight: 0
+    weight: 0,
+    activity: "medium",
+    age: 0
   } as UserDataType);
 
   const emailRegex =
@@ -283,10 +287,13 @@ export const useUsers = (): UseUsersData => {
 
   const updateStates = async () => {
     if (user) {
-      const { height, weight, sex } = await getSingleUserDocs(user);
+      const { height, weight, sex, activity, age } =
+        await getSingleUserDocs(user);
 
-      const updatedUser = { sex, height, weight };
-      setUserData(updatedUser);
+      if (height && weight && sex && activity && age) {
+        const updatedUser = { sex, height, weight, activity, age };
+        setUserData(updatedUser);
+      }
     }
   };
 
