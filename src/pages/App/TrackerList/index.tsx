@@ -5,10 +5,13 @@ import { TrackerContext } from "../../../context/TrackerContext";
 import Arrow from "../../../assets/arrow-right-solid.svg?react";
 
 import "./TrackerList.scss";
+import { useTranslation } from "react-i18next";
 
 export const TrackerList = () => {
   const { isVisible, setIsVisible, onClickProductPreview } =
     useContext(TrackerContext);
+  const { t } = useTranslation();
+
   return (
     <div className="tracker-list">
       <div
@@ -33,7 +36,7 @@ export const TrackerList = () => {
           className="tracker-list__modal-exit"
           onClick={() => setIsVisible(false)}
         />
-        <h4 className="tracker-list__modal-title">Dodaj produkt</h4>
+        <h4 className="tracker-list__modal-title">{t("addProduct")}</h4>
         <div className="tracker-list__products-list">
           <ProductsList onClickHandle={onClickProductPreview} />
         </div>

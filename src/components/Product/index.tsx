@@ -23,7 +23,6 @@ export const Product = ({ functionality }: ProductProps) => {
     handleInput,
     updateInputs,
     handleEditSubmit,
-    handleDelete,
     setInputValue,
     handleEdit,
     handleCancel

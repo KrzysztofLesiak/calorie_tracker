@@ -67,7 +67,13 @@ i18n.use(initReactI18next).init({
         age: "Age",
         height: "Height",
         weight: "Weight",
-        needs: "Your caloric needs are "
+        needs: "Your caloric needs are ",
+        breakfast: "Breakfast",
+        secondBreakfast: "Second Breakfast",
+        dinner: "Dinner",
+        lunch: "Lunch",
+        supper: "Supper",
+        summary: "Summary"
       }
     },
     pl: {
@@ -90,7 +96,7 @@ i18n.use(initReactI18next).init({
         addProduct: "Dodaj produkt",
         amount: "Ilość",
         addToList: "Dodaj do listy",
-        emptyList: "Brak produktów na liście",
+        emptyList: "Brak produktów",
         login: "Zaloguj się",
         logout: "Wyloguj się",
         logging: "Logowanie",
@@ -118,7 +124,13 @@ i18n.use(initReactI18next).init({
         age: "Wiek",
         height: "Wzrost",
         weight: "Waga",
-        needs: "Twoje zapotrzebowanie kaloryczne wynosi "
+        needs: "Twoje zapotrzebowanie kaloryczne wynosi ",
+        breakfast: "Śniadanie",
+        secondBreakfast: "Drugie śniadanie",
+        dinner: "Obiad",
+        lunch: "Lunch",
+        supper: "Kolacja",
+        summary: "Podsumowanie"
       }
     }
   }

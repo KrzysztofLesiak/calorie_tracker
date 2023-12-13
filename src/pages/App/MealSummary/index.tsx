@@ -3,6 +3,7 @@ import { TrackerContext } from "../../../context/TrackerContext";
 import { MealListType } from "../Tracker";
 
 import "./MealSummary.scss";
+import { useTranslation } from "react-i18next";
 
 type MealSummaryProps = {
   mealType: string;
@@ -10,6 +11,7 @@ type MealSummaryProps = {
 
 export const MealSummary = ({ mealType }: MealSummaryProps) => {
   const { mealList } = useContext(TrackerContext);
+  const { t } = useTranslation();
 
   return (
     <p className="meal-summary">
@@ -22,7 +24,7 @@ export const MealSummary = ({ mealType }: MealSummaryProps) => {
         kcal
       </span>
       <span>
-        B:{" "}
+        {t("proteins").slice(0, 1)}:{" "}
         {mealList[mealType as keyof MealListType]
           .reduce((acc, { amount, proteins }) => {
             return acc + amount! * proteins;
@@ -30,7 +32,7 @@ export const MealSummary = ({ mealType }: MealSummaryProps) => {
           .toFixed(2)}
       </span>
       <span>
-        W:{" "}
+        {t("carbohydrates").slice(0, 1)}:{" "}
         {mealList[mealType as keyof MealListType]
           .reduce((acc, { amount, carbohydrates }) => {
             return acc + amount! * carbohydrates;
@@ -38,7 +40,7 @@ export const MealSummary = ({ mealType }: MealSummaryProps) => {
           .toFixed(2)}
       </span>
       <span>
-        T:{" "}
+        {t("fats").slice(0, 1)}:{" "}
         {mealList[mealType as keyof MealListType]
           .reduce((acc, { amount, fats }) => {
             return acc + amount! * fats;
