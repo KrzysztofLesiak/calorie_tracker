@@ -36,6 +36,7 @@ export const Login = () => {
           }
           type="email"
           name="email"
+          autoComplete="email"
           placeholder="Email"
           value={inputValue.email}
           onChange={handleInput}
@@ -54,6 +55,7 @@ export const Login = () => {
           }
           type="password"
           name="password"
+          autoComplete="passowrd"
           placeholder={t("password")}
           value={inputValue.password}
           onChange={handleInput}
