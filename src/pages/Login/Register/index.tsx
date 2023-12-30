@@ -39,6 +39,7 @@ export const Register = () => {
           }${errorMsg.email ? " register__input register__input--error" : ""}`}
           type="email"
           name="email"
+          autoComplete="email"
           placeholder="Email"
           value={registerInputValue.email}
           onChange={handleRegisterInput}
@@ -51,6 +52,7 @@ export const Register = () => {
             matchValidation.username ? "register__input--validation" : ""
           } ${errorMsg.username ? "register__input--error" : ""}`}
           type="username"
+          autoComplete="username"
           name="username"
           placeholder={t("username")}
           value={registerInputValue.username}
@@ -68,6 +70,7 @@ export const Register = () => {
             matchValidation.password ? "register__input--validation" : ""
           } ${errorMsg.password.length ? "register__input--error" : ""}`}
           type="password"
+          autoComplete="password"
           name="password"
           placeholder={t("password")}
           value={registerInputValue.password}
@@ -89,6 +92,7 @@ export const Register = () => {
           } ${errorMsg.confirmPassword ? "register__input--error" : ""}`}
           type="password"
           name="confirmPassword"
+          autoComplete="confirmPassword"
           placeholder={t("confirmPassword")}
           value={registerInputValue.confirmPassword}
           onChange={handleRegisterInput}

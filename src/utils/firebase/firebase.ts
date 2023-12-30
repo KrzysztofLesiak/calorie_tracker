@@ -101,8 +101,6 @@ export const signIn = async (email: string, password: string) => {
     const response = await signInWithEmailAndPassword(auth, email, password);
 
     if (!response) throw new Error("Something went wrong");
-
-    // const accessToken = await response.user.getIdToken();
     return "Logged in";
   } catch (error: unknown) {
     if (!(error instanceof FirebaseError)) throw { error };
